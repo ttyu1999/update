@@ -1,0 +1,24 @@
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pagination li a {
+    padding: .4em .8em;
+}
+
+.pagination li.currentpage a {
+    position: relative;
+}
+
+.pagination li.currentpage a::after {
+    content: '';
+    width: 80%;
+    height: 2px;
+    background-color: var(--dark_pink_color);
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+}

@@ -1,0 +1,120 @@
+:root {
+    --height: 0fr;
+}
+
+nav.sidebar {
+    padding: .4em 1em .4em 0;
+    position: relative;
+    flex: 0 1 var(--sidebar_width);
+    position: sticky;
+    top: 70px;
+    height: 88vh;
+    /* Chrome 114 版不再支援overlay:( */
+    overflow: overlay;
+    overscroll-behavior: contain;
+    -ms-scroll-chaining: contain;
+    scrollbar-gutter: stable;
+}
+
+/* 滾輪設定 */
+nav.sidebar::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+nav.sidebar::-webkit-scrollbar {
+    width: .4em;
+}
+
+nav.sidebar::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+
+/* 共用 */
+nav.sidebar ul li {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+nav.sidebar ul li a {
+    flex: 1 1 0;
+    padding: .6em .5em;
+    font-size: .9rem;
+}
+
+nav.sidebar ul li a span {
+    position: relative;
+    transition: color .2s ease-in-out;
+}
+
+nav.sidebar ul li a span:before {
+    content: '';
+    position: absolute;
+    bottom: -.25em;
+    width: 0;
+    height: 1px;
+    background-color: var(--light_pink_color);
+    transition: width .2s ease-in-out;
+}
+
+nav.sidebar ul li a:hover span {
+    color: var(--light_pink_color);
+}
+
+nav.sidebar ul li a:hover span:before {
+    width: 100%;
+}
+
+/* 展開箭頭 */
+nav.sidebar span.material-symbols-outlined {
+    flex: 0 1 1em;
+    cursor: pointer;
+    transition: transform .5s ease-in-out;
+}
+
+nav.sidebar span.material-symbols-outlined.rotate {
+    transform: rotate(180deg);
+}
+
+/* 第一層選單 */
+nav.sidebar > ul > li > * {
+    color: var(--dark_green_color);
+    font-weight: 700;
+}
+
+/* 第二層選單 */
+.sub_menu a {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    color: var(--black_color);
+    font-weight: 400;
+}
+
+.sub_menu li:has(.sub_menu) > * {
+    color: var(--primary_color);
+    font-weight: 700;
+}
+
+/* 下拉選單控制 */
+nav.sidebar .drop_down {
+    width: 100%;
+    padding-left: 1em;
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 1.5s;
+}
+
+nav.sidebar .drop_down > ul {
+    overflow: hidden;
+}
+
+@media screen and (max-width: 769px) {
+    nav.sidebar {
+        display: none;
+    }
+}

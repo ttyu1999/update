@@ -1,0 +1,88 @@
+:root {
+    font-size: 16px;
+    --primary_color: #58b086;
+    --dotted_color: #8cc8ac;
+    --dark_green_color: #077f67;
+    --light_gray_color: #eee;
+    --dark_gray_color: #ccc;
+    --black_color: #242424;
+    --light_pink_color: #f27070;
+    --dark_pink_color: #eb6565;
+}
+
+*, *::before, *::after {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    box-sizing: border-box;
+    font-family: 'Roboto Condensed', 'Noto Sans TC', sans-serif;
+}
+
+body {
+    background-color: #fff;
+    color: var(--black_color);
+    line-height: 1.5;
+    letter-spacing: 1px;
+}
+
+body .material-symbols-outlined {
+    cursor: pointer;
+    user-select: none;
+    line-height: 1.7;
+    font-size: 1.1em;
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 20
+}
+
+[class^=icofont-]::before,
+[class^=icofont-]::after {
+    font-family: IcoFont!important;
+    margin-left: 1px;
+    padding-top: 3px;
+}
+
+a {
+    display: inline-block;
+    text-decoration: none;
+    color: var(--black_color);
+    cursor: pointer;
+}
+
+button {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    letter-spacing: 1px;
+}
+
+label {
+    display: inline-block;
+}
+
+input:focus {
+    outline: none;
+}
+
+input, textarea {
+    font-size: initial;
+}
+
+img {
+    max-width: 100%;
+    vertical-align: middle;
+}
+
+@media screen and (max-width: 1024px) {
+    :root {
+        font-size: 15px;
+    }
+}
+
+@media screen and (max-width: 769px) {
+    :root {
+        font-size: 14px;
+    }
+}
