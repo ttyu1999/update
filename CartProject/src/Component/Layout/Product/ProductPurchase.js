@@ -1,4 +1,7 @@
+import React from "react";
+
 const ProductPurchase = () => {
+    console.log('Purchase');
     return (
         <div className="purchase_buttons_box">
             <button className="btn quick_order_btn" type="submit">
@@ -11,4 +14,4 @@ const ProductPurchase = () => {
         </div>
     );
 }
-export default ProductPurchase;
+export default React.memo(ProductPurchase);

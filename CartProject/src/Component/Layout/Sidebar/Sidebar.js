@@ -4,10 +4,13 @@ import { useState } from "react";
 const Sidebar = (props) => {
     const { menus } = props;
     const [ expandedState, setExpandedState ] = useState({});
+
+    const categoriesClick = (id) => {
+        console.log(id);
+    }
     
     const arrowClickHandler = (id) => {
         setExpandedState((prevExpandedState) => {
-            console.log(prevExpandedState);
             return (
                 {
                     ...prevExpandedState,
@@ -21,7 +24,7 @@ const Sidebar = (props) => {
         const isSubMenuExpanded = expandedState[menu.id] || false;
         return (
             <li key={menu.id}>
-                <a>
+                <a onClick={() => categoriesClick(menu.id)}>
                     <span>{menu.name}</span>
                 </a>
                 {menu.subMenus && (
@@ -33,7 +36,7 @@ const Sidebar = (props) => {
                     </span>
                 )}
                 {menu.subMenus && (
-                    <div className="drop_down sub_menu" style={{ gridTemplateRows: isSubMenuExpanded ? '1fr' : '0fr' }}>
+                    <div className="drop_down sub_menu" style={{ gridTemplateRows: isSubMenuExpanded ? '1fr' : '' }}>
                         <ul>
                             {menu.subMenus.map((subMenu) => {
                                 return renderListItem(subMenu);
@@ -54,8 +57,8 @@ const Sidebar = (props) => {
                         <span>全館商品</span>
                     </a>
                 </li>
-                {menus.map((menu, index) => {
-                    return renderListItem(menu, index)
+                {menus.map((menu) => {
+                    return renderListItem(menu)
                 })}
             </ul>
         </nav>

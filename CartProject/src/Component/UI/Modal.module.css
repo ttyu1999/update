@@ -1,0 +1,39 @@
+.backdrop {
+    position: fixed;
+    inset: 0;
+    background-color: #00000073;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity .4s ease-in-out,
+                visibility .4s ease-in-out;
+    z-index: 1000;
+}
+
+.modal {
+    width: min(800px, 85%);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    z-index: 1001;
+    border: none;
+    border-radius: 1em;
+    box-shadow: 0 0 1.5em #00000052;
+    max-height: 90vh;
+    overscroll-behavior: contain;
+    -ms-scroll-chaining: contain;
+}
+
+.scroll {
+    overflow: auto;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    padding: 2.8em 1.8em;
+}

@@ -4,6 +4,7 @@
     --dotted_color: #8cc8ac;
     --dark_green_color: #077f67;
     --light_gray_color: #eee;
+    --middle_gray_color: #585858;
     --dark_gray_color: #ccc;
     --black_color: #242424;
     --light_pink_color: #f27070;
@@ -25,6 +26,12 @@ body {
     letter-spacing: 1px;
 }
 
+body.commodity-mode {
+    overflow: hidden;
+    scrollbar-gutter: stable;
+    padding-right: 17px; /* 增加一個與滾輪同寬的padding */
+}
+
 body .material-symbols-outlined {
     cursor: pointer;
     user-select: none;
@@ -34,7 +41,7 @@ body .material-symbols-outlined {
     'FILL' 0,
     'wght' 400,
     'GRAD' 0,
-    'opsz' 20
+    'opsz' 20;
 }
 
 [class^=icofont-]::before,
@@ -84,5 +91,9 @@ img {
 @media screen and (max-width: 769px) {
     :root {
         font-size: 14px;
+    }
+
+    body.commodity-mode {
+        padding-right: 0;
     }
 }

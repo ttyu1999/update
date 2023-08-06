@@ -1,11 +1,11 @@
-import Carousel from '../Carousel';
-import Sidebar from './Sidebar/Sidebar';
+import Carousel from '../../Carousel';
+import Sidebar from '../Sidebar/Sidebar';
 import BreadCrumb from './BreadCrumb';
-import FilterProduct from './Product/FilterProduct';
-import ProductList from './Product/ProductList';
+import FilterProduct from '../Product/FilterProduct';
+import ProductList from '../Product/ProductList';
 import Pagination from './Pagination';
-import PRODUCT_DATA from '../../productData';
-import MENU_DATA from '../../menuData';
+import PRODUCT_DATA from '../../../productData';
+import MENU_DATA from '../../../menuData';
 
 import './Main.css';
 
