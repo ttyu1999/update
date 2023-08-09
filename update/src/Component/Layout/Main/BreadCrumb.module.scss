@@ -1,0 +1,27 @@
+.breadcrumb {
+    font-size: .9em;
+    padding: 1em 0;
+    display: flex;
+    background-color: #ffffffeb;
+    position: sticky;
+    top: calc(24px + 3rem);
+    z-index: 10;
+
+    li {
+        display: flex;
+
+        ~ li::before {
+            content: '/';
+            margin-inline: .3em;
+        }
+
+        a {
+            font-size: .9rem;
+        }
+
+        &:last-of-type a {
+            color: var(--dark_green_color);
+            font-weight: 700;
+        }
+    }
+}

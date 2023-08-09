@@ -1,0 +1,122 @@
+.sidebar {
+    // 第一層選單
+    > ul > li > * {
+        color: var(--dark_green_color);
+        font-weight: 500;
+    }
+
+    &:global {
+        &::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        &::-webkit-scrollbar {
+            width: .4em;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+        }
+    }
+
+    :global {
+        padding: .4em 1em .4em 0;
+        position: relative;
+        flex: 0 1 var(--sidebar_width);
+        position: sticky;
+        top: 70px;
+        height: 88vh;
+        /* Chrome 114 版不再支援overlay:( */
+        overflow: overlay;
+        overscroll-behavior: contain;
+        -ms-scroll-chaining: contain;
+        scrollbar-gutter: stable;
+
+        ul li {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+
+            a {
+                flex: 1 1 0;
+                padding: .6em .5em;
+                font-size: .9rem;
+
+                span {
+                    position: relative;
+                    transition: color .2s ease-in-out;
+
+                    &:before {
+                        content: '';
+                        position: absolute;
+                        bottom: -.25em;
+                        width: 0;
+                        height: 1px;
+                        background-color: var(--light_pink_color);
+                        transition: width .2s ease-in-out;
+                    }
+                }
+
+                &:hover {
+                    span {
+                        color: var(--light_pink_color);
+
+                        &:before {
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+
+            .rotate {
+                transform: rotate(180deg);
+            }
+
+            .icon {
+                flex: 0 1 1em;
+                font-size: .9rem;
+                font-weight: 700;
+                transition: transform .5s ease-in-out;
+            }
+        }
+        /* 下拉選單控制 */
+        .drop_down {
+            width: 100%;
+            padding-left: 1em;
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 1.5s;
+
+            > ul {
+                overflow: hidden;
+            }
+        }
+
+        /* 第二層選單 */
+        .sub_menu {
+            li:has(.sub_menu) > * {
+                color: var(--primary_color);
+                font-weight: 500;
+            }
+
+            a {
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
+                overflow: hidden;
+                color: var(--gray_black_color);
+                font-weight: 400;
+            }
+        }
+    }
+}
+
+
+@media screen and (max-width: 769px) {
+    .sidebar {
+        display: none;
+    }
+}

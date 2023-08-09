@@ -1,0 +1,47 @@
+.header {
+    :global {
+        position: sticky;
+        top: 0;
+        z-index: 999;
+        background-color: #ffffffeb;
+        box-shadow: 0 0 5px #0000003d;
+
+        .icon {
+            font-size: 1.5em;
+            padding: .5em;
+            cursor: pointer;
+            color: var(--dark_green_color);
+        }
+        
+        .group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: min(1280px, 95%);
+            margin: 0 auto;
+        }
+    
+        .logo {
+            order: 2;
+    
+            h1 {
+                font-size: 0;
+            }
+    
+            a {
+                padding: 1.5em;
+            }
+        }
+
+        .menu {
+            order: 1;
+            margin-right: auto;
+        }
+
+        .search {
+            order: 3;
+            margin-left: auto;
+        }
+
+    }
+}

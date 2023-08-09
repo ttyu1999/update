@@ -1,0 +1,8 @@
+.soldout {
+    cursor: no-drop !important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: transparent !important;
+    color: var(--dark_gray_color) !important;
+}

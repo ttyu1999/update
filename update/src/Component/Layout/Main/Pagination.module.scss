@@ -1,0 +1,29 @@
+.pagination {
+    :global {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        li {
+            a {
+                padding: .4em .8em; 
+            }
+        }
+
+        .currentpage a {
+            position: relative;
+
+            &::after {
+                content: '';
+                width: 80%;
+                height: 2px;
+                background-color: var(--dark_pink_color);
+                position: absolute;
+                left: 50%;
+                bottom: 0;
+                transform: translateX(-50%);
+            }
+        }
+    }
+}
+

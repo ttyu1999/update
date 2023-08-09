@@ -1,0 +1,50 @@
+.quantity_box {
+    flex: 1 1 auto;
+}
+
+.quantity_box > div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.quantity_box .control_quantity {
+    padding: .75em;
+    border-radius: .25rem;
+    background-color: var(--light_gray_color);
+    cursor: pointer;
+    transition: background .1s ease-in-out;
+}
+
+.quantity_box .control_quantity .material-symbols-outlined {
+    color: var(--middle_gray_color);
+    font-size: 1em;
+    font-weight: 700;
+    transition: color .1s ease-in-out;
+}
+
+.quantity_box .control_quantity:active {
+    background-color: var(--dark_gray_color);
+}
+
+.quantity_box .control_quantity:active .material-symbols-outlined {
+    color: #fff;
+}
+
+input.user_buy_quantity {
+    width: 2rem;
+    color: var(--middle_gray_color);
+    text-align: center;
+    border: none;
+}
+
+input.user_buy_quantity::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.stock_shortage {
+    width: 100%;
+    text-align: right;
+    font-size: .7em;
+    color: var(--dark_pink_color);
+}
