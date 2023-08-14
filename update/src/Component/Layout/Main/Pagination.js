@@ -1,42 +1,46 @@
+import React from 'react';
+import { useContext } from 'react';
 import styles from './Pagination.module.scss';
-import { HiOutlineChevronLeft } from "react-icons/hi";
-import { HiOutlineChevronRight } from "react-icons/hi";
+import { ProductListContext, SearchContext } from '../../../store/product-context';
 
 const Pagination = () => {
-    return (
-        <ul className={styles.pagination}>
-            <li>
-                <a>
-                    <span className="icon"><HiOutlineChevronLeft /></span>
-                </a>
-            </li>
-            <li className="currentpage">
-                <a>
-                    <span>1</span>
-                </a>
-            </li>
-            <li>
-                <a>
-                    <span>2</span>
-                </a>
-            </li>
-            <li>
-                <a>
-                    <span>3</span>
-                </a>
-            </li>
-            <li>
-                <a>
-                    <span>4</span>
-                </a>
-            </li>
-            <li>
-                <a>
-                    <span className="icon"><HiOutlineChevronRight /></span>
-                </a>
-            </li>
-        </ul>
-    );
+    const ctx = useContext(ProductListContext);
+    const searchCtx = useContext(SearchContext);
+
+    const totalPages = Math.ceil(ctx.getProductLength.length / ctx.onePageItem);
+
+    const handlePageChange = (page) => {
+        searchCtx.setCurrentPage(page);
+
+        const element = document.getElementById('product__content');
+
+        element.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    }
+
+    let hasPage;
+
+    if (ctx.getProductLength.length > ctx.onePageItem) {
+        hasPage = (
+            <ul className={styles.pagination}>
+                {
+                    Array.from({ length: totalPages }, (_, index) => {
+                        return (
+                            <li key={index} className={searchCtx.currentPage === index + 1 ? 'currentpage' : ''} onClick={() => handlePageChange(index + 1)}>
+                                <a>
+                                    <span>{index + 1}</span>
+                                </a>
+                            </li>
+                        );
+                    })
+                }
+            </ul>
+        );
+    }
+
+    return hasPage;
 }
 
-export default Pagination;
+export default React.memo(Pagination);

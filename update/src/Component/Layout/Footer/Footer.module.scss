@@ -13,7 +13,7 @@
             position: relative;
             padding: 3em 0;
 
-            .logo_info > * {
+            .logo__info > * {
                 padding: .5em;
             }
     
@@ -23,12 +23,13 @@
                 align-items: center;
     
                 a {
+                    --border__width: 2px;
                     width: 30px;
-                    color: var(--primary_color);
-                    border: 2px solid var(--primary_color);
+                    color: var(--primary__color);
+                    border: var(--border__width) solid var(--primary__color);
                     aspect-ratio: 1/1;
                     border-radius: 50%;
-                    background-color: #fff;
+                    background-color: var(--white__color);
                     display: flex;
                     justify-content: center;
                     align-items: center;
@@ -38,15 +39,15 @@
     
     
                     &:hover {
-                        color: #fff;
-                        border: 1px solid transparent;
-                        background-color: var(--primary_color);
+                        color: var(--white__color);
+                        border: var(--border__width) solid transparent;
+                        background-color: var(--primary__color);
                     }
                 }
             }
     
 
-            .footer_menu {
+            .footer__menu {
                 flex: 0 1 800px;
 
                 > ul {
@@ -55,17 +56,28 @@
                     justify-content: space-between;
                     gap: 2em 5em;
 
-                    li {
+                    > li {
                         flex: 0 1 130px;
 
                         a {
-                            font-size: .9rem;
+                            width: 100%;
+                            font-size: .8rem;
                             padding: .3em 0;
+                            transition: color .2s ease-in-out;
                         }
 
                         h3 {
-                            color: var(--primary_color);
+                            color: var(--primary__color);
                             font-size: 1rem;
+                            font-weight: 500;
+                        }
+
+                        li {
+                            &:hover {
+                                a {
+                                    color: var(--light__pink__color);
+                                }
+                            }
                         }
                     }
                 }
@@ -73,9 +85,9 @@
         }
 
         .copyright {
-            color: #fff;
+            color: var(--white__color);
             text-align: center;
-            background-color: var(--dark_green_color);
+            background-color: var(--dark__green__color);
         }
     }
 }

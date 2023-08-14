@@ -1,26 +1,56 @@
-import { useCallback, useContext, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import ProductItem from "./ProductItem";
 import styles  from './ProductList.module.scss';
 import ProductModal from "./ProductModal";
-import { ProductContext } from "../../../store/product-context";
+import { ProductListContext, SearchContext } from "../../../store/product-context";
+import PRODUCT_DATA from "../../../assets/product-data";
 
 
-const ProductList = (props) => {
+const ProductList = () => {
     const [shownProductModal, setShownProductModal] = useState(false);
     const [getProductId, setGetProductId] = useState('');
 
-    const ctx = useContext(ProductContext);
+    const ctx = useContext(ProductListContext);
 
-      // 比較函數用於排序
-    const compareByPrice = (a, b) => {
+    const searchCtx = useContext(SearchContext);
+
+    const { setGetProductLength } = ctx;
+
+    const selectCategoryHandler = useCallback((products) => {
+        return products.filter(product => {
+            if (searchCtx.searchInputValue || !ctx.selectedCategory || ctx.selectedCategory === '000000') {
+                return product;
+            } else {
+                return Object.values(product.productCategory).includes(ctx.selectedCategory);
+            }
+        });
+    }, [ctx.selectedCategory, searchCtx.searchInputValue]);
+
+    const searchProductHandler = useCallback((products) => {
+        return products.filter(product => product.productName.includes(searchCtx.searchInputValue) || product.productDesc.includes(searchCtx.searchInputValue));
+    }, [searchCtx.searchInputValue]);
+
+
+    const combinedFilterAndSearch = useCallback((products) => {
+        const filteredByCategory = selectCategoryHandler(products);
+        const filteredAndSearched = searchProductHandler(filteredByCategory);
+        return filteredAndSearched;
+    }, [selectCategoryHandler, searchProductHandler]);
+
+    useEffect(() => {
+        setGetProductLength(combinedFilterAndSearch(PRODUCT_DATA));
+    }, [combinedFilterAndSearch, setGetProductLength, ctx.selectedCategory]);
+
+        // 比較函數用於排序
+    const compareByTimeAndPrice = (a, b) => {
         switch (ctx.filterData) {
-            case 'new_to_old':
+            case 'new__to__old':
                 return a.addedTime - b.addedTime; // 由新到舊
-            case 'old_to_new':
+            case 'old__to__new':
                 return b.addedTime - a.addedTime; // 由舊到新
-            case 'high_to_low':
+            case 'high__to__low':
                 return b.productPrice - a.productPrice; // 由高到低
-            case 'low_to_high':
+            case 'low__to__high':
                 return a.productPrice - b.productPrice; // 由低到高
 
             default:
@@ -28,9 +58,34 @@ const ProductList = (props) => {
         }
     };
 
-    const filterProducts = ctx.products.sort(compareByPrice);
+    const filterProducts = combinedFilterAndSearch(PRODUCT_DATA).sort(compareByTimeAndPrice);
 
-    const { products } = props;
+    const startIndex = (searchCtx.currentPage - 1) * ctx.onePageItem;
+    const endIndex = ctx.onePageItem + startIndex;
+
+    const currentItems = filterProducts.slice(startIndex, endIndex);
+
+    let withoutItem;
+
+    if (filterProducts.length === 0) {
+        withoutItem = (
+            <div className="without__item">
+                <img src="img/withoutItem.png" alt="without__item" />
+                    <p>
+                        <span>．</span>
+                        <span>．</span>
+                        <span>．</span>
+                        <span>暫</span>
+                        <span>無</span>
+                        <span>商</span>
+                        <span>品</span>
+                        <span>．</span>
+                        <span>．</span>
+                        <span>．</span>
+                    </p>
+            </div>
+        );
+    }
 
     const selectedItemHandler = (productId) => {
         setGetProductId(productId);
@@ -41,10 +96,11 @@ const ProductList = (props) => {
     }, []);
 
     return (
-        <>
-            <ul className={styles.products_box}>
+        <div className={styles.products__container} id="products__container">
+            {withoutItem}
+            <ul className="products__box">
                 {
-                    filterProducts.map((product) => {
+                    currentItems.map((product) => {
                         return (
                             <ProductItem
                                 key={product.id}
@@ -57,8 +113,8 @@ const ProductList = (props) => {
                     })
                 }
             </ul>
-            {shownProductModal && <ProductModal products={products} productItem={getProductId} onHide={hideModalHandler} />}
-        </>
+            {shownProductModal && <ProductModal productItem={getProductId} onHide={hideModalHandler} />}
+        </div>
     );
 }
 

@@ -1,18 +1,32 @@
 import React from "react";
 
 
-export const ProductContext = React.createContext({
+export const SelectedProductContext = React.createContext({
     buyQuantityHandler: () => {},
     resetQuantity: () => {},
     specSelected: () => {},
     isResetQuantity: false,
     userSeletedQuantity: 1,
     setUserSeletedQuantity: () => {},
+
+});
+
+export const ProductListContext = React.createContext({
     products: [],
     filterData: [],
     setFilterData: () => {},
+    selectedCategory: '',
+    setSelectedCategory: () => {},
+    getProductLength: '',
+    setGetProductLength: () => {},
+    onePageItem: '',
+    breadCrumbArray: [],
+    setBreadCrumbArray: () => {},
 });
 
-export const ProductIdContext = React.createContext({
-    productId: '',
+export const SearchContext = React.createContext({
+    searchInputValue: '',
+    setSearchInputValue: () => {},
+    currentPage: '',
+    setCurrentPage: () => {},
 });

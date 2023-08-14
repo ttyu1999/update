@@ -1,21 +1,26 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useState } from "react";
 import { HiX } from "react-icons/hi";
 import ProductSelectSpec from "./ProductSelectSpec";
 import ProductPrice from "./ProductPrice";
 import ProductQuantity from "./ProductQuantity";
 import ProductPurchase from "./ProductPurchase";
-import { ProductContext } from "../../../store/product-context";
+import { SelectedProductContext } from "../../../store/product-context";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import styles from "./ProductModal.module.scss";
 
 import "./ProductModal.module.scss";
 import Modal from "../../UI/Modal";
+import PRODUCT_DATA from "../../../assets/product-data";
 
 const ProductModal = (props) => {
   const [removeAnimation, setRemoveAnimation] = useState(false);
+  const [showBuyQuantity, setShowBuyQuantity] = useState('');
+  const [modelSrcoll, setModelSrcoll] = useState(styles.product__modal);
+  const [isResetQuantity, setIsResetQuantity] = useState(false);
+  const [userSeletedQuantity, setUserSeletedQuantity] = useState(1);
 
-  const filterItem = props.products.filter(
+  const filterItem = PRODUCT_DATA.filter(
     (product) => product.id === props.productItem
   );
 
@@ -29,10 +34,6 @@ const ProductModal = (props) => {
     productPrice,
   } = filterItem[0];
 
-  const [showBuyQuantity, setShowBuyQuantity] = useState('');
-  const [modelSrcoll, setModelSrcoll] = useState(styles.product_modal);
-  const [isResetQuantity, setIsResetQuantity] = useState(false);
-  const [userSeletedQuantity, setUserSeletedQuantity] = useState(1);
 
   const hideModalHandler = () => {
     setRemoveAnimation(true);
@@ -65,7 +66,7 @@ const ProductModal = (props) => {
 
 
   const specSelected = () => {
-    setModelSrcoll(`${styles.product_modal} ${styles.scroll}`);
+    setModelSrcoll(`${styles.product__modal} ${styles.scroll}`);
   };
 
   let swiperSlide = productImg?.map((img, index) => {
@@ -95,8 +96,6 @@ const ProductModal = (props) => {
     );
   }
 
-  console.log('modal');
-
   return (
     <Modal
       onHide={hideModalHandler}
@@ -104,7 +103,7 @@ const ProductModal = (props) => {
       onMoveIn={styles.show__modal}
       onMoveOut={styles.remove__modal}
     >
-      <ProductContext.Provider
+      <SelectedProductContext.Provider
         value={{
           buyQuantityHandler,
           resetQuantity,
@@ -148,7 +147,7 @@ const ProductModal = (props) => {
             <HiX />
           </span>
         </section>
-      </ProductContext.Provider>
+      </SelectedProductContext.Provider>
     </Modal>
   );
 };

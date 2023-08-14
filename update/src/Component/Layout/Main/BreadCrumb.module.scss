@@ -1,27 +1,34 @@
 .breadcrumb {
-    font-size: .9em;
-    padding: 1em 0;
+    padding: .5em 0;
     display: flex;
-    background-color: #ffffffeb;
+    background-color: var(--white__translucent__color);
     position: sticky;
     top: calc(24px + 3rem);
     z-index: 10;
 
     li {
-        display: flex;
 
         ~ li::before {
             content: '/';
             margin-inline: .3em;
         }
 
-        a {
-            font-size: .9rem;
+        button {
+            color: var(--black__color);
+            font-size: .8rem;
+            cursor: pointer;
+            transition: color .3s ease-in-out;
         }
 
-        &:last-of-type a {
-            color: var(--dark_green_color);
-            font-weight: 700;
+        &:last-of-type button {
+            color: var(--dark__green__color);
+            font-weight: 500;
+        }
+
+        &:hover {
+            button {
+                color: var(--light__pink__color);
+            }
         }
     }
 }

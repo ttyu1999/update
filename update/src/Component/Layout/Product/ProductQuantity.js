@@ -1,19 +1,14 @@
-import React, { useRef } from "react";
-import { useCallback, useContext, useEffect, useState } from "react";
-import { HiOutlineMinusSm } from "react-icons/hi";
-import { HiOutlinePlusSm } from "react-icons/hi";
-import './ProductQuantity.css';
-import { ProductContext } from "../../../store/product-context";
+import React, { useCallback, useContext, useEffect, useState } from "react";
+import styles from './ProductQuantity.module.scss';
+import { SelectedProductContext } from "../../../store/product-context";
+import Fluctuation from "../../UI/Fluctuation";
 
 const ProductQuantity =(props) => {
     const { singleSpecStock, multipleSpecStock, onResetQuantity } = props;
     const [ inputValue, setInputValue ] = useState(1);
     const [ isStockShortage, setisStockShortage ] = useState(false);
 
-    const inputValueRef = useRef();
-    const ctx = useContext(ProductContext);
-
-    console.log('quantity');
+    const ctx = useContext(SelectedProductContext);
 
     useEffect(() => {
         if (ctx.isResetQuantity) {
@@ -26,7 +21,7 @@ const ProductQuantity =(props) => {
         ctx.setUserSeletedQuantity(inputValue);
     });
 
-    const stockShortage = !isStockShortage || <p className="stock_shortage">庫存不足，無法訂購您選擇之數量</p>;
+    const stockShortage = !isStockShortage || <p className={styles.stock__shortage}>庫存不足，無法訂購您選擇之數量</p>;
 
     const quantityHandler = useCallback((fluctuation) => {
         if (fluctuation === 'decrease') {
@@ -45,7 +40,7 @@ const ProductQuantity =(props) => {
 
     const getUserInputValue = useCallback((e) => {
         const { value } = e.target;
-        setInputValue(value);
+        setInputValue(+value);
 
         if (value < 1) {
             setInputValue(1);
@@ -55,33 +50,17 @@ const ProductQuantity =(props) => {
             setInputValue(multipleSpecStock || singleSpecStock);
             setisStockShortage(true);
         }
+        return setisStockShortage(false);
     }, [multipleSpecStock, singleSpecStock]);
 
     return (
         <>
-            <div className="quantity_box">
-                <div>
-                    <button
-                        className="control_quantity decrease"
-                        onClick={() => quantityHandler('decrease')}
-                    >
-                        <span className="icon"><HiOutlineMinusSm /></span>
-                    </button>
-                    <input
-                        className="user_buy_quantity"
-                        type="number"
-                        onChange={getUserInputValue}
-                        value={inputValue}
-                        ref={inputValueRef}
-                    />
-                    <button
-                        className="control_quantity increase"
-                        onClick={() => quantityHandler('increase')}
-                    >
-                        <span className="icon"><HiOutlinePlusSm /></span>
-                    </button>
-                </div>
-            </div>
+            <Fluctuation
+                onDecrease={() => quantityHandler('decrease')}
+                onIncrease={() => quantityHandler('increase')}
+                onGetUserInputValue={getUserInputValue}
+                onInputValue={inputValue}
+            />
             {stockShortage}
         </>
     );

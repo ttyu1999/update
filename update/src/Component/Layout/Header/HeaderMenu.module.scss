@@ -9,12 +9,15 @@
 .nav {
     :global {
         width: clamp(250px, 40vw, 350px);
-        background-color: #fff;
+        background-color: var(--white__color);
+        box-shadow: 0 0 5px #0000003d;
 
         li {
-            a {
+            button {
+                color: var(--black__color);
                 flex: 1 1 auto;
                 font-size: .9em;
+                text-align: left;
                 width: 100%;
                 padding: .8em 1.5em;
                 cursor: pointer;
@@ -67,7 +70,7 @@
                             inset: 0;
                             transition: visibility .2s ease-in-out,
                                         opacity .2s ease-in-out;
-                            background-color: #fff;
+                            background-color: var(--white__color);
                             visibility: hidden;
                             opacity: 0;
                         }
@@ -82,13 +85,17 @@
 
 
                 h2,h3 {
-                    font-size: 1.2em;
-                    color: var(--dark_green_color);
+                    font-size: 1.1em;
+                    color: var(--dark__green__color);
+                }
+
+                h3 {
+                    font-weight: 500;
                 }
 
                 .icon {
                     font-size: 1.2em;
-                    color: var(--dark_green_color);
+                    color: var(--dark__green__color);
                 }
 
                 /* X 跟回上一頁 */
@@ -97,7 +104,7 @@
                     position: absolute;
                     top: 50%;
                     transform: translateY(-50%);
-                    color: var(--dark_green_color);
+                    color: var(--dark__green__color);
                 }
 
                 .menu__close {

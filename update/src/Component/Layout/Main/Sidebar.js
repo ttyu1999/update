@@ -1,15 +1,14 @@
 import styles from './Sidebar.module.scss';
 import { useState } from "react";
 import { HiOutlineChevronDown } from "react-icons/hi";
+import MENU_DATA from '../../../assets/menu-data';
+import useFindMenuItem from '../../../hook/useFindMenuItem';
 
-const Sidebar = (props) => {
-    const { menus } = props;
+const Sidebar = () => {
     const [ expandedState, setExpandedState ] = useState({});
 
-    const categoriesClick = (id) => {
-        console.log(id);
-    }
-    
+    const { categoriesClick } = useFindMenuItem();
+
     const arrowClickHandler = (id) => {
         setExpandedState((prevExpandedState) => {
             return (
@@ -25,9 +24,9 @@ const Sidebar = (props) => {
         const isSubMenuExpanded = expandedState[menu.id] || false;
         return (
             <li key={menu.id}>
-                <a onClick={() => categoriesClick(menu.id)}>
+                <button type="button" onClick={() => categoriesClick(menu.id)}>
                     <span>{menu.name}</span>
-                </a>
+                </button>
                 {menu.subMenus && (
                     <span
                         className={`icon${isSubMenuExpanded ? ' rotate' : ''}`}
@@ -37,7 +36,7 @@ const Sidebar = (props) => {
                     </span>
                 )}
                 {menu.subMenus && (
-                    <div className="drop_down sub_menu" style={{ gridTemplateRows: isSubMenuExpanded ? '1fr' : '' }}>
+                    <div className="drop__down sub__menu" style={{ gridTemplateRows: isSubMenuExpanded ? '1fr' : '' }}>
                         <ul>
                             {menu.subMenus.map((subMenu) => {
                                 return renderListItem(subMenu);
@@ -53,13 +52,8 @@ const Sidebar = (props) => {
     return (
         <nav className={styles.sidebar}>
             <ul>
-                <li>
-                    <a>
-                        <span>全館商品</span>
-                    </a>
-                </li>
-                {menus.map((menu) => {
-                    return renderListItem(menu)
+                {MENU_DATA.map((menu) => {
+                    return renderListItem(menu);
                 })}
             </ul>
         </nav>

@@ -27,14 +27,14 @@ const FormSelect = (props) => {
         };
     });
 
-    const toggleList = `filter_list ${!filterList ? "hidden" : ''}`;
+    const toggleList = `filter__list ${!filterList ? "hidden" : ''}`;
 
     const toggleArrow = `icon ${filterList ? "rotate" : ''}`;
 
     return (
         <div className={`${styles.select} ${props.maxWidth ? styles.width : ''}`}>
-            <div className="select_filter" onClick={showListHandler} ref={filterListRef}>
-                <button className="filter_btn" type="button">{props.selectDefault}</button>
+            <div className="select__filter" onClick={showListHandler} ref={filterListRef}>
+                <button type="button" className="filter__btn">{props.selectDefault}</button>
                 <span className={toggleArrow}><HiOutlineChevronDown /></span>
             </div>
             <ul className={toggleList}>

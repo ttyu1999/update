@@ -1,21 +1,19 @@
 import Header from "./Component/Layout/Header/Header";
 import Main from "./Component/Layout/Main/Main";
 import Footer from "./Component/Layout/Footer/Footer";
-import MENU_DATA from "./assets/menu-data";
-import { ProductContext, ProductProvider } from "./store/product-context";
-import PRODUCT_DATA from "./assets/product-data";
-import FILTER_DATA from "./assets/filter-data";
+import { SearchContext } from "./store/product-context";
 import { useState } from "react";
 
 const App = () => {
-  const [filterData, setFilterData] = useState(FILTER_DATA);
+  const [searchInputValue, setSearchInputValue] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
 
   return (
-    <ProductContext.Provider value={{products: PRODUCT_DATA, filterData, setFilterData}}>
-      <Header menuData={MENU_DATA} />
+    <SearchContext.Provider value={{searchInputValue, setSearchInputValue, currentPage, setCurrentPage}}>
+      <Header />
       <Main />
       <Footer />
-    </ProductContext.Provider>
+    </SearchContext.Provider>
   );
 };
 

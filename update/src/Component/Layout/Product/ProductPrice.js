@@ -1,16 +1,15 @@
 import React, { useContext } from "react";
 import NumberWithCommas from '../../../Component/Provider/NumberWithCommas';
-import { ProductContext } from "../../../store/product-context";
+import { SelectedProductContext } from "../../../store/product-context";
 
 const ProductPrice = (props) => {
     const { productOriPrice, productPrice } = props;
 
-    console.log('price');
-    const ctx = useContext(ProductContext);
-    let oriPrice = productOriPrice && <span className="ori_price">NT${NumberWithCommas(productOriPrice * ctx.userSeletedQuantity)}</span>;
+    const ctx = useContext(SelectedProductContext);
+    let oriPrice = productOriPrice && <span className="ori__price">NT${NumberWithCommas(productOriPrice * ctx.userSeletedQuantity)}</span>;
 
     return (
-        <div className="price_box">
+        <div className="price__box">
             {oriPrice}
             <span className="price">NT${NumberWithCommas(productPrice * ctx.userSeletedQuantity)}</span>
         </div>

@@ -2,13 +2,16 @@ import ReactDOM from 'react-dom';
 import styles from './Modal.module.css';
 
 const Backdeop = (props) => {
-    const showClass = `${styles.backdrop} ${props.remove ? styles.remove__backdrop : ''}`;
+    const {onHide, remove} = props;
+    const showClass = `${styles.backdrop} ${remove ? styles.remove__backdrop : ''}`;
 
-    return <div className={showClass} onClick={props.onHide} />;
+    return <div className={showClass} onClick={onHide} />;
 }
 
 const ModalOverlay = (props) => {
-    const showClass = `${styles.modal} ${props.onMoveIn} ${props.remove ? props.onMoveOut : ''}`;
+    const {remove, onMoveIn, onMoveOut, onRightSide} = props;
+
+    const showClass = `${styles.modal} ${onRightSide ? styles.margin__left : ''} ${onMoveIn} ${remove ? onMoveOut : ''}`;
 
     return (
         <div className={showClass}>
@@ -20,12 +23,13 @@ const ModalOverlay = (props) => {
 const portalElement = document.getElementById('overlay');
 
 const Modal = (props) => {
+    const {onHide, remove, onMoveIn, onMoveOut, onRightSide} = props;
 
     return (
         <>
-            {ReactDOM.createPortal(<Backdeop onHide={props.onHide} remove={props.remove} />, portalElement)}
+            {ReactDOM.createPortal(<Backdeop onHide={onHide} remove={remove} />, portalElement)}
             {ReactDOM.createPortal(
-            <ModalOverlay remove={props.remove} onMoveIn={props.onMoveIn} onMoveOut={props.onMoveOut}>
+            <ModalOverlay remove={remove} onMoveIn={onMoveIn} onMoveOut={onMoveOut} onRightSide={onRightSide}>
                 {props.children}
             </ModalOverlay>, portalElement)}
         </>

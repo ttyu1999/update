@@ -2,15 +2,16 @@ import { useCallback } from "react";
 import { HiOutlineChevronRight } from "react-icons/hi";
 import { HiOutlineChevronLeft } from "react-icons/hi";
 import { HiX } from "react-icons/hi";
-
+import MENU_DATA from "../../../assets/menu-data";
 
 const NavMenu = (props) => {
-    const { menuData } = props;
+
+    const { onHide } = props;
 
     const renderListItem = useCallback((menu) => {
         return (
             <li key={menu.id}>
-                <a>{menu.name}</a>
+                <button type="button">{menu.name}</button>
                 {menu.subMenus && 
                 <>
                     <input type="checkbox" id={menu.id} />
@@ -31,7 +32,7 @@ const NavMenu = (props) => {
                             </span>
                         </label>
                         <h3>{menu.name}</h3>
-                        <span className="icon menu__close" onClick={props.onHide}><HiX /></span>
+                        <span className="icon menu__close" onClick={onHide}><HiX /></span>
                     </header>
                     <ul>
                         {menu.subMenus && menu.subMenus?.map(subMenu => {
@@ -42,14 +43,11 @@ const NavMenu = (props) => {
                 }
             </li> 
         );
-    }, []);
+    }, [onHide]);
 
     return (
         <ul>
-            <li>
-                <a>全館商品</a>
-            </li>
-            {menuData.map(menu => renderListItem(menu, menu.subMenus))}
+            {MENU_DATA.map(menu => renderListItem(menu, menu.subMenus))}
         </ul>
     )
 }

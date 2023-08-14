@@ -1,24 +1,41 @@
-import { HiOutlineShoppingBag } from "react-icons/hi";
-import { HiOutlineMinusSm } from "react-icons/hi";
-import { HiOutlinePlusSm } from "react-icons/hi";
 import { HiOutlineTrash } from "react-icons/hi";
+import styles from './ShoppingCart.module.scss';
+import Fluctuation from "../../UI/Fluctuation";
+import Modal from "../../UI/Modal";
+import { useState } from "react";
 
 
-const ShoppingCart = () => {
+const ShoppingCart = (props) => {
+    const [removeAnimation, setRemoveAnimation] = useState(false);
+
+    const hideMenuHandler = () => {
+        setRemoveAnimation(true);
+        const timer = setTimeout(() => {
+            props.onHide();
+            setRemoveAnimation(false);
+        }, 350);
+
+        return () => {
+        clearTimeout(timer);
+        };
+    };
+
     return (
-        <div className="shopping_cart">
-            <input type="checkbox" id="shopping_cart_toggle" />
-            <label className="shopping_cart_btn" htmlFor="shopping_cart_toggle">
-                <span className="icon"><HiOutlineShoppingBag /></span>
-            </label>
-            <div className="shopping_cart">
-                <section className="mini_cart">
-                    <header className="opt_items">
+        <Modal
+            onHide={hideMenuHandler}
+            remove={removeAnimation}
+            onMoveIn={styles.show__modal}
+            onMoveOut={styles.remove__modal}  
+            onRightSide={true}
+        >
+            <div className={styles.shopping__cart__modal}>
+                <section className="mini__cart">
+                    <header className="opt__items">
                         <p>共<span>5</span>件商品</p>
                     </header>
-                    <div className="opt_products">
+                    <div className="opt__products">
                         <ul>
-                            <li className="product_list">
+                            <li className="product__list">
                                 <div className="pic">
                                     <a>
                                         <img src="./img/彩妝/innisfree Grace Gift 九宮格眼影限量聯名組(眼影+唇萃).jpg" alt="innisfree | Grace Gift 九宮格眼影限量聯名組(眼影+唇萃)" />
@@ -32,24 +49,20 @@ const ShoppingCart = () => {
                                     <div className="price">
                                         <p>NT$980</p>
                                     </div>
-                                    <div className="opt_amount">
-                                        <button className="control_amount reduce">
-                                            <span className="icon"><HiOutlineMinusSm /></span>
-                                        </button>
-                                        <input className="user_buy_amount" type="number" />
-                                        <button className="control_amount plus">
-                                            <span className="icon"><HiOutlinePlusSm /></span>
-                                        </button>
-                                        <button className="delete_product">
-                                            <span className="icon"><HiOutlineTrash /></span>
-                                        </button>
+                                    <div className="quantity">
+                                        <Fluctuation />
+                                        <div className="delete">
+                                            <span className="icon">
+                                                <HiOutlineTrash />
+                                            </span>
+                                        </div>
                                     </div>
-                                    <div className="opt_price">
+                                    <div className="total__amount">
                                         <p>NT$980</p>
                                     </div>
                                 </div>
                             </li>
-                            <li className="product_list">
+                            <li className="product__list">
                                 <div className="pic">
                                     <a>
                                         <img src="./img/彩妝/晨露無色潤唇膏.jpg" alt="晨露無色潤唇膏" />
@@ -63,64 +76,28 @@ const ShoppingCart = () => {
                                     <div className="price">
                                         <p>NT$450</p>
                                     </div>
-                                    <div className="opt_amount">
-                                        <button className="control_amount reduce">
-                                            <span className="icon"><HiOutlineMinusSm /></span>
-                                        </button>
-                                        <input className="user_buy_amount" type="number" />
-                                        <button className="control_amount plus">
-                                            <span className="icon"><HiOutlinePlusSm /></span>
-                                        </button>
-                                        <button className="delete_product">
-                                            <span className="icon"><HiOutlineTrash /></span>
-                                        </button>
+                                    <div className="quantity">
+                                        <Fluctuation />
+                                        <div className="delete">
+                                            <span className="icon">
+                                                <HiOutlineTrash />
+                                            </span>
+                                        </div>
                                     </div>
-                                    <div className="opt_price">
-                                        <p>NT$450</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li className="product_list">
-                                <div className="pic">
-                                    <a>
-                                        <img src="./img/彩妝/晨露無色潤唇膏.jpg" alt="晨露無色潤唇膏" />
-                                    </a>
-                                </div>
-                                <div className="txt">
-                                    <a>
-                                        <h2>晨露無色潤唇膏</h2>
-                                    </a>
-                                    <p className="spec"></p>
-                                    <div className="price">
-                                        <p>NT$450</p>
-                                    </div>
-                                    <div className="opt_amount">
-                                        <button className="control_amount reduce">
-                                            <span className="icon"><HiOutlineMinusSm /></span>
-                                        </button>
-                                        <input className="user_buy_amount" type="number" />
-                                        <button className="control_amount plus">
-                                            <span className="icon"><HiOutlinePlusSm /></span>
-                                        </button>
-                                        <button className="delete_product">
-                                            <span className="icon"><HiOutlineTrash /></span>
-                                        </button>
-                                    </div>
-                                    <div className="opt_price">
+                                    <div className="total__amount">
                                         <p>NT$450</p>
                                     </div>
                                 </div>
                             </li>
                         </ul>
                     </div>
-                    <footer className="opt_total">
+                    <footer className="opt__total">
                         <p>小計<span>NT$20,000</span></p>
                     </footer>
-                    <button className="check_cart">查看購物車</button>
+                    <button type="button" className="check__cart">查看購物車</button>
                 </section>
             </div>
-            <label className="mini_cart_overlay" htmlFor="shopping_cart_toggle"></label>
-        </div>
+        </Modal>
     );
 }
 

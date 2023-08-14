@@ -1,12 +1,11 @@
 import React, { useCallback } from 'react';
 import { useContext } from 'react';
-import './ProductSpecList.css';
-import { ProductContext } from '../../../store/product-context';
+import styles from './ProductSpecList.module.scss';
+import { SelectedProductContext } from '../../../store/product-context';
 
 const ProductSpecList = (props) => {
-    console.log('specList');
     const { productSpec, onSelected } = props;
-    const ctx = useContext(ProductContext);
+    const ctx = useContext(SelectedProductContext);
     
     const selectedHandler = useCallback(() => {
         let stock = productSpec.stock;
@@ -17,7 +16,7 @@ const ProductSpecList = (props) => {
         }
     }, [productSpec, onSelected, ctx]);
 
-    const isSoldOut = !productSpec.stock ? 'soldout' : '';
+    const isSoldOut = !productSpec.stock ? styles.soldout : '';
 
     return (
         <li className={isSoldOut} onClick={selectedHandler}>

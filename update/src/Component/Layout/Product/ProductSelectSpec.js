@@ -2,16 +2,15 @@ import React, { useMemo } from 'react';
 import { useCallback, useContext, useState } from 'react';
 import ProductSpecList from './ProductSpecList';
 import FormSelect from '../../UI/FormSelect';
-import { ProductContext } from '../../../store/product-context';
+import { SelectedProductContext } from '../../../store/product-context';
 
 const ProductSelectSpec = (props) => {
-    const { productSpecs, productId } = props;
-    console.log('specUL');
+    const { productSpecs } = props;
 
     const [ filterList, setFilterList ] = useState(false);
     const [ selectDefault, setSelectDefault ] = useState('請選擇規格');
 
-    const ctx = useContext(ProductContext);
+    const ctx = useContext(SelectedProductContext);
 
     const selected = useCallback((specName) => {
         setSelectDefault(specName);

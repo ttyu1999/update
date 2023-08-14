@@ -1,3 +1,5 @@
+import MENU_DATA from "./menu-data";
+
 const PRODUCT_DATA = [
     {
         id: 'B0202001',
@@ -7,9 +9,9 @@ const PRODUCT_DATA = [
             'img/彩妝/innisfree Grace Gift 九宮格眼影限量聯名組(眼影+唇萃)法式馬卡龍.jpg'
         ],
         productCategory: {
-            topLevelCategory: '彩妝',
-            twoLevelCategory: '眼部彩妝',
-            threeLevelCategory: '眼影'
+            topLevelCategory: MENU_DATA[2].id,
+            twoLevelCategory: MENU_DATA[2].subMenus[1].id,
+            threeLevelCategory: MENU_DATA[2].subMenus[1].subMenus[1].id
         },
         productName: 'innisfree | Grace Gift 九宮格眼影限量聯名組(眼影+唇萃)',
         productDesc: 'innisfree | Grace Gift 九宮格眼影限量聯名組(眼影+唇萃)',
@@ -52,8 +54,8 @@ const PRODUCT_DATA = [
             'img/彩妝/晨露無色潤唇膏(2).jpg'
         ],
         productCategory: {
-            topLevelCategory: '臉部保養',
-            twoLevelCategory: '護唇/護唇膏',
+            topLevelCategory: 'A',
+            twoLevelCategory: 'A04',
             threeLevelCategory: null
         },
         productName: '晨露無色潤唇膏',
@@ -82,9 +84,9 @@ const PRODUCT_DATA = [
             'img/彩妝/怦然空氣感薄霧唇膏.jpg'
         ],
         productCategory: {
-            topLevelCategory: '彩妝',
-            twoLevelCategory: '唇部彩妝',
-            threeLevelCategory: '唇膏'
+            topLevelCategory: 'B',
+            twoLevelCategory: 'B03',
+            threeLevelCategory: 'B0301'
         },
         productName: '怦然空氣感薄霧唇膏(8色)',
         productDesc: '超輕盈的霧面質地，天然純淨的成分不刺激降低敏感，輕柔包覆雙唇如同天生唇色般，令人怦然心動的空氣感唇膏。',
@@ -162,9 +164,9 @@ const PRODUCT_DATA = [
             'img/彩妝/怦然空氣感眼彩盤(2).jpg'
         ],
         productCategory: {
-            topLevelCategory: '彩妝',
-            twoLevelCategory: '眼部彩妝',
-            threeLevelCategory: '眼影'
+            topLevelCategory: 'B',
+            twoLevelCategory: 'B02',
+            threeLevelCategory: 'B0202'
         },
         productName: '怦然空氣感眼彩盤(4色)',
         productDesc: '如同空氣般輕盈服貼的柔和質地，以天然純淨的成分不刺激降低敏感，擦上後擁有令人怦然心動的明亮雙眼。',
@@ -214,9 +216,9 @@ const PRODUCT_DATA = [
             'img/彩妝/自然簡約低敏眉筆(2).jpg'
         ],
         productCategory: {
-            topLevelCategory: '彩妝',
-            twoLevelCategory: '眼部彩妝',
-            threeLevelCategory: '眉筆'
+            topLevelCategory: 'B',
+            twoLevelCategory: 'B02',
+            threeLevelCategory: 'B0204'
         },
         productName: '自然簡約低敏眉筆',
         productDesc: '低敏性3D雕塑眉筆，長效持久不脫妝，勾勒出完美自然眉型。',
@@ -266,8 +268,8 @@ const PRODUCT_DATA = [
             'img/精華液/[兔年限定] 綠茶火山雙星組(2).jpg'
         ],
         productCategory: {
-            topLevelCategory: '臉部保養',
-            twoLevelCategory: '精華/精華液',
+            topLevelCategory: 'A',
+            twoLevelCategory: 'A01',
             threeLevelCategory: null
         },
         productName: '[兔年限定] 綠茶火山雙星組',
@@ -297,8 +299,8 @@ const PRODUCT_DATA = [
             'img/身體髮品/我的香氛身體乳(2).jpg'
         ],
         productCategory: {
-            topLevelCategory: '身體髮品',
-            twoLevelCategory: '身體保養',
+            topLevelCategory: 'C',
+            twoLevelCategory: 'C01',
             threeLevelCategory: null
         },
         productName: '我的香氛身體乳',
@@ -349,9 +351,9 @@ const PRODUCT_DATA = [
             'img/彩妝/無油無慮保濕蜜粉(2).jpg'
         ],
         productCategory: {
-            topLevelCategory: '彩妝',
-            twoLevelCategory: '臉部彩妝',
-            threeLevelCategory: '蜜粉'
+            topLevelCategory: 'B',
+            twoLevelCategory: 'B01',
+            threeLevelCategory: 'B0105'
         },
         productName: '無油無慮保濕蜜粉',
         productDesc: '調節油脂分泌，讓肌膚呈現薄霧美肌、白皙光滑的保濕蜜粉',
@@ -380,9 +382,9 @@ const PRODUCT_DATA = [
             'img/彩妝/雙色眉彩餅(2).jpg'
         ],
         productCategory: {
-            topLevelCategory: '彩妝',
-            twoLevelCategory: '眼部彩妝',
-            threeLevelCategory: '眉筆'
+            topLevelCategory: 'B',
+            twoLevelCategory: 'B02',
+            threeLevelCategory: 'B0204'
         },
         productName: '雙色眉彩餅',
         productDesc: '調透過深淺雙色的漸層，簡單描繪出立體自然眉妝的眉彩餅',
@@ -418,7 +420,7 @@ const PRODUCT_DATA = [
             'img/三大精華/A醇淨膚超修護安瓶(2).jpg'
         ],
         productCategory: {
-            topLevelCategory: '三大精華',
+            topLevelCategory: 'H',
             twoLevelCategory: null,
             threeLevelCategory: null
         },
@@ -449,7 +451,7 @@ const PRODUCT_DATA = [
             'img/三大精華/濟州紅茶彈潤修護組(2).jpg'
         ],
         productCategory: {
-            topLevelCategory: '三大精華',
+            topLevelCategory: 'H',
             twoLevelCategory: null,
             threeLevelCategory: null
         },
@@ -481,9 +483,9 @@ const PRODUCT_DATA = [
             'img/彩妝/無油無慮零毛孔控油氣墊(5色)(2).jpg'
         ],
         productCategory: {
-            topLevelCategory: '彩妝',
-            twoLevelCategory: '臉部彩妝',
-            threeLevelCategory: '氣墊'
+            topLevelCategory: 'B',
+            twoLevelCategory: 'B01',
+            threeLevelCategory: 'B0104'
         },
         productName: '無油無慮零毛孔控油氣墊(5色)',
         productDesc: '控油效果持續48小時，完美遮瑕修飾毛孔的氣墊粉餅',
@@ -540,8 +542,8 @@ const PRODUCT_DATA = [
             'img/精華液/九重完美青春再生活膚精華.jpg'
         ],
         productCategory: {
-            topLevelCategory: '臉部保養',
-            twoLevelCategory: '精華/精華液',
+            topLevelCategory: 'A',
+            twoLevelCategory: 'A01',
             threeLevelCategory: null
         },
         productName: '九重完美青春再生活膚精華',
@@ -572,9 +574,9 @@ const PRODUCT_DATA = [
             'img/彩妝/怦然空氣感薄霧唇萃(8色)(3).jpg'
         ],
         productCategory: {
-            topLevelCategory: '彩妝',
-            twoLevelCategory: '唇部彩妝',
-            threeLevelCategory: '唇釉'
+            topLevelCategory: 'B',
+            twoLevelCategory: 'B03',
+            threeLevelCategory: 'B0302'
         },
         productName: '怦然空氣感薄霧唇萃(8色)',
         productDesc: '超輕盈的霧面質地，以天然純淨的成分不刺激降低敏感，直接融化在雙唇上如同天生唇色一般，令人怦然心動的空氣感唇萃。',
@@ -652,8 +654,8 @@ const PRODUCT_DATA = [
             'img/精華液/濟州紅茶極效修護晶露75ml.jpg'
         ],
         productCategory: {
-            topLevelCategory: '臉部彩妝',
-            twoLevelCategory: '精華/精華液',
+            topLevelCategory: 'A',
+            twoLevelCategory: 'A01',
             threeLevelCategory: null
         },
         productName: '濟州紅茶極效修護晶露',
@@ -683,9 +685,9 @@ const PRODUCT_DATA = [
             'img/彩妝/超強效不暈染眼線液(2).jpg'
         ],
         productCategory: {
-            topLevelCategory: '彩妝',
-            twoLevelCategory: '眼部彩妝',
-            threeLevelCategory: '眼線筆'
+            topLevelCategory: 'B',
+            twoLevelCategory: 'B02',
+            threeLevelCategory: 'B0203'
         },
         productName: '超強效不暈染眼線液',
         productDesc: '強力防水防油的眼線液',
@@ -722,9 +724,9 @@ const PRODUCT_DATA = [
             'img/彩妝/我的專屬遮瑕蜜[黑眼圈遮瑕](3).jpg'
         ],
         productCategory: {
-            topLevelCategory: '彩妝',
-            twoLevelCategory: '臉部彩妝',
-            threeLevelCategory: '遮瑕膏'
+            topLevelCategory: 'B',
+            twoLevelCategory: 'B01',
+            threeLevelCategory: 'B0102'
         },
         productName: '我的專屬遮瑕蜜[黑眼圈遮瑕]',
         productDesc: '根據不同瑕疵客製化的我的專屬卸妝系列[黑眼圈遮瑕]',
@@ -760,8 +762,8 @@ const PRODUCT_DATA = [
             'img/臉部保養/向日葵完美清爽防曬霜(2).jpg'
         ],
         productCategory: {
-            topLevelCategory: '臉部保養',
-            twoLevelCategory: '防曬/防曬精華',
+            topLevelCategory: 'A',
+            twoLevelCategory: 'A08',
             threeLevelCategory: null
         },
         productName: '向日葵完美清爽防曬霜 SPF50+ PA++++',
@@ -791,8 +793,8 @@ const PRODUCT_DATA = [
             'img/臉部保養/向日葵亮顏控油防曬霜.jpg'
         ],
         productCategory: {
-            topLevelCategory: '臉部保養',
-            twoLevelCategory: '防曬/防曬精華',
+            topLevelCategory: 'A',
+            twoLevelCategory: 'A08',
             threeLevelCategory: null
         },
         productName: '向日葵亮顏控油防曬霜 SPF50+ PA++++',
@@ -822,8 +824,8 @@ const PRODUCT_DATA = [
             'img/臉部保養/向日葵完美全效防曬霜.jpg'
         ],
         productCategory: {
-            topLevelCategory: '臉部保養',
-            twoLevelCategory: '防曬/防曬精華',
+            topLevelCategory: 'A',
+            twoLevelCategory: 'A08',
             threeLevelCategory: null
         },
         productName: '向日葵完美全效防曬霜 SPF50+ PA++++',
@@ -853,8 +855,8 @@ const PRODUCT_DATA = [
             'img/臉部保養/向日葵亮顏水感防曬霜.jpg'
         ],
         productCategory: {
-            topLevelCategory: '臉部保養',
-            twoLevelCategory: '防曬/防曬精華',
+            topLevelCategory: 'A',
+            twoLevelCategory: 'A08',
             threeLevelCategory: null
         },
         productName: '向日葵亮顏水感防曬霜 SPF50+ PA++++',
@@ -884,8 +886,8 @@ const PRODUCT_DATA = [
             'img/臉部保養/水感高效防曬精華(2).jpg'
         ],
         productCategory: {
-            topLevelCategory: '臉部保養',
-            twoLevelCategory: '防曬/防曬精華',
+            topLevelCategory: 'A',
+            twoLevelCategory: 'A08',
             threeLevelCategory: null
         },
         productName: '水感高效防曬精華 SPF50+ PA++++',

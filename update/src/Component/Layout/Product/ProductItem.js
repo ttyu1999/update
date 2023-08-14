@@ -9,7 +9,7 @@ const ProductItem = (props) => {
 
     const { productImg, productName, productDesc, productSpecs, productOriPrice, productPrice } = product;
 
-    let oriPrice = productOriPrice && <span className="ori_price">NT${NumberWithCommas(productOriPrice)}</span>;
+    let oriPrice = productOriPrice && <span className="ori__price">NT${NumberWithCommas(productOriPrice)}</span>;
 
     let stock;
 
@@ -26,10 +26,11 @@ const ProductItem = (props) => {
         stock = (
             <>
                 <button
-                    className="quick_view_btn"
+                    type="button"
+                    className="quick__view__btn"
                     onClick={() => quickViewHandler('show')}
                 >
-                    <span className="icon quick_view"><HiOutlineEye /></span>
+                    <span className="icon quick__view"><HiOutlineEye /></span>
                     <span>快速瀏覽</span>
                 </button>
             </>
@@ -38,12 +39,10 @@ const ProductItem = (props) => {
     } else {
         stock = <p className={styles.isSoldOut}>暫無存貨</p>;
     }
-    
-    console.log('haha');
 
     return (
         <>
-            <li className="product_list">
+            <li className="product__list">
                 <a>
                     <div className="pic">
                         <img src={productImg[0]} alt={productName} />
@@ -53,7 +52,7 @@ const ProductItem = (props) => {
                         <h2>{productName}</h2>
                         <p>{productDesc}</p>
                     </div>
-                    <div className="price_box">
+                    <div className="price__box">
                         {oriPrice}
                         <span className="price">NT${NumberWithCommas(productPrice)}</span>
                     </div>

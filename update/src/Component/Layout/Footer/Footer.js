@@ -9,7 +9,7 @@ const Footer = () => {
     return (
         <footer className={styles.footer}>
             <div className="group">
-                <div className="logo_info">
+                <div className="logo__info">
                     <a href="#">
                         <h2>
                             <img src="img/logo.png" alt="INNISFREE" />
@@ -30,7 +30,7 @@ const Footer = () => {
                         </a>
                     </div>
                 </div>
-                <nav className="footer_menu">
+                <nav className="footer__menu">
                     <ul>
                         <li>
                             <ul>

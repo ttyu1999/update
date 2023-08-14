@@ -1,5 +1,6 @@
 import styles from "./Header.module.scss";
 import { HiOutlineMenu } from "react-icons/hi";
+import { HiOutlineShoppingCart } from "react-icons/hi";
 
 import HeaderMenu from "./HeaderMenu";
 import HeaderSearch from "./HeaderSearch";
@@ -7,11 +8,13 @@ import ShoppingCart from "./ShoppingCart";
 import HeaderLogo from "./HeaderLogo";
 import { useState } from "react";
 
-const Header = (props) => {
+const Header = () => {
     const [shownMenu, setShownMenu] = useState(false);
+    const [shownShoppingCart, setShownShoppingCart] = useState(false);
 
-    const menuHandler = (identifier) => {
-        identifier === 'show' ? setShownMenu(true) : setShownMenu(false);
+    const modalHandler = (identifier) => {
+        identifier === 'showMenu' ? setShownMenu(true) : setShownMenu(false);
+        identifier === 'showCart' ? setShownShoppingCart(true) : setShownShoppingCart(false);
     }
 
     return (
@@ -19,13 +22,18 @@ const Header = (props) => {
         <div className="group">
             <HeaderLogo />
             <div className="menu">
-                <span className="icon" onClick={() => menuHandler('show')}>
+                <span className="icon" onClick={() => modalHandler('showMenu')}>
                     <HiOutlineMenu />
                 </span>
             </div>
-            {shownMenu && <HeaderMenu menuData={props.menuData} onHide={() => menuHandler('hide')} />}
+            {shownMenu && <HeaderMenu onHide={() => modalHandler('hide')} />}
             <HeaderSearch />
-            {/* <ShoppingCart /> */}
+            <div className="shopping__cart">
+                <span className="icon" onClick={() => modalHandler('showCart')}>
+                    <HiOutlineShoppingCart />
+                </span>
+            </div>
+            {shownShoppingCart && <ShoppingCart onHide={() => modalHandler('hide')} />}
         </div>
         </header>
     );

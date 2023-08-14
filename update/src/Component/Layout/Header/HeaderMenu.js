@@ -35,21 +35,21 @@ const HeaderMenu = (props) => {
             </span>
           </header>
           <nav className="menu">
-            <NavMenu menuData={props.menuData} onHide={hideMenuHandler} />
+            <NavMenu onHide={hideMenuHandler} />
           </nav>
           <footer className="menu__footer">
             <ul>
               <li>
-                <a>關於我們</a>
+                <button type="button">關於我們</button>
               </li>
               <li>
-                <a>顧客服務</a>
+                <button type="button">顧客服務</button>
               </li>
               <li>
-                <a>尋找旗艦店</a>
+                <button type="button">尋找旗艦店</button>
               </li>
               <li>
-                <a>聯繫</a>
+                <button type="button">聯繫</button>
               </li>
             </ul>
           </footer>

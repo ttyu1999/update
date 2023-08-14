@@ -1,15 +1,17 @@
 :root {
   font-size: 16px;
-  --primary_color: #58b086;
-  --dotted_color: #8cc8ac;
-  --dark_green_color: #077f67;
-  --light_gray_color: #eee;
-  --middle_gray_color: #585858;
-  --dark_gray_color: #ccc;
-  --black_color: #242424;
-  --gray_black_color: #3d3d3d;
-  --light_pink_color: #f27070;
-  --dark_pink_color: #eb6565;
+  --white__color: #fff;
+  --white__translucent__color: #ffffffeb;
+  --primary__color: #58b086;
+  --dotted__color: #8cc8ac;
+  --dark__green__color: #077f67;
+  --light__gray__color: #eee;
+  --middle__gray__color: #585858;
+  --dark__gray__color: #ccc;
+  --black__color: #242424;
+  --gray__black__color: #3d3d3d;
+  --light__pink__color: #f27070;
+  --dark__pink__color: #eb6565;
 }
 
 *, *::before, *::after {
@@ -21,10 +23,10 @@
 }
 
 body {
-  background-color: #fff;
-  color: var(--black_color);
+  background-color: var(--white__color);
+  color: var(--black__color);
   line-height: 1.5;
-  letter-spacing: 1px;
+  letter-spacing: .1rem;
 }
 
 body.commodity-mode {
@@ -42,7 +44,7 @@ body .icon {
 a {
   display: inline-block;
   text-decoration: none;
-  color: var(--black_color);
+  color: var(--black__color);
   cursor: pointer;
 }
 

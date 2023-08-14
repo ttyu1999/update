@@ -6,7 +6,7 @@
     animation: hideModal .3s ease-out;
 }
 
-.product_modal {
+.product__modal {
 
     :global {
         width: min(800px, 85%);
@@ -14,12 +14,11 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        background-color: #fff;
-        z-index: 1001;
+        background-color: var(--white__color);
         border: none;
         border-radius: 1em;
         box-shadow: 0 0 1.5em #00000052;
-        max-height: 90vh;
+        max-height: 95vh;
         overscroll-behavior: contain;
         -ms-scroll-chaining: contain;
 
@@ -55,7 +54,7 @@
             .pic img {
                 aspect-ratio: 1/1;
                 object-fit: cover;
-                background-color: #fff;
+                background-color: var(--white__color);
             }
 
             .txt {
@@ -73,13 +72,13 @@
                 }
                 
                 p {
-                    color: var(--gray_black_color);
+                    color: var(--gray__black__color);
                     font-size: .9rem;
                     text-align: justify;
                 }
             }
 
-            .price_box {
+            .price__box {
                 flex: 8 1 115px;
                 display: flex;
                 flex-wrap: wrap;
@@ -89,19 +88,19 @@
                 gap: 0 .5em;
 
                 .price {
-                    color: var(--dark_green_color);
+                    color: var(--dark__green__color);
                     font-size: 1.2em;
                     font-weight: 700;
                 }
                 
-                .ori_price {
-                    color: var(--dark_gray_color);
+                .ori__price {
+                    color: var(--dark__gray__color);
                     font-size: .75rem;
                     text-decoration: line-through;
                 }
             }
 
-            .purchase_buttons_box {
+            .purchase__buttons__box {
                 display: flex;
                 flex-wrap: wrap;
                 gap: .5em;
@@ -109,7 +108,7 @@
             }
 
             .btn {
-                color: #fff;
+                color: var(--white__color);
                 flex: 8 1 200px;
                 padding: .9em 0;
                 cursor: pointer;
@@ -120,29 +119,31 @@
 
                 span {
                     font-size: 1em;
-                    color: #fff;
+                    color: var(--white__color);
                 }
             }
             
-            .quick_order_btn {
-                background-color: var(--light_pink_color);
+            .quick__order__btn {
+                background-color: var(--light__pink__color);
 
                 &:hover {
-                    background-color: var(--dark_pink_color);
+                    background-color: var(--dark__pink__color);
                 }
             }
             
             
-            .add_cart_btn {
-                background-color: var(--primary_color);
+            .add__cart__btn {
+                background-color: var(--primary__color);
 
                 .icon {
-                    color: #fff;
+                    color: var(--white__color);
+                    font-size: 1.5em;
+                    padding-right: .25em;
                     transition: color .3s ease-in-out;
                 }
 
                 &:hover {
-                    background-color: var(--dark_green_color);
+                    background-color: var(--dark__green__color);
                 }
             }
         }
