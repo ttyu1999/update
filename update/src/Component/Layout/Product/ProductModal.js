@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { HiX } from "react-icons/hi";
 import ProductSelectSpec from "./ProductSelectSpec";
 import ProductPrice from "./ProductPrice";
@@ -12,11 +12,12 @@ import styles from "./ProductModal.module.scss";
 import "./ProductModal.module.scss";
 import Modal from "../../UI/Modal";
 import PRODUCT_DATA from "../../../assets/product-data";
+import { ModalContext } from "../../../store/modal-context";
+import useHideModel from "../../../hook/useHideModal";
 
 const ProductModal = (props) => {
-  const [removeAnimation, setRemoveAnimation] = useState(false);
   const [showBuyQuantity, setShowBuyQuantity] = useState('');
-  const [modelSrcoll, setModelSrcoll] = useState(styles.product__modal);
+  const [modelSrcoll, setModelSrcoll] = useState(false);
   const [isResetQuantity, setIsResetQuantity] = useState(false);
   const [userSeletedQuantity, setUserSeletedQuantity] = useState(1);
 
@@ -34,18 +35,9 @@ const ProductModal = (props) => {
     productPrice,
   } = filterItem[0];
 
+  const modalCtx = useContext(ModalContext);
 
-  const hideModalHandler = () => {
-    setRemoveAnimation(true);
-    const timer = setTimeout(() => {
-      props.onHide();
-      setRemoveAnimation(false);
-    }, 250);
-
-    return () => {
-      clearTimeout(timer);
-    };
-  };
+  const { hideMenuHandler } = useHideModel();
 
   const resetQuantity = () => {
     setIsResetQuantity(true);
@@ -64,10 +56,10 @@ const ProductModal = (props) => {
     );
   };
 
-
   const specSelected = () => {
-    setModelSrcoll(`${styles.product__modal} ${styles.scroll}`);
+    setModelSrcoll(true);
   };
+
 
   let swiperSlide = productImg?.map((img, index) => {
     return (
@@ -96,10 +88,12 @@ const ProductModal = (props) => {
     );
   }
 
+  const modalStyle = modelSrcoll ? {overflowY: 'auto'} : {overflowY: 'visible'}; 
+
   return (
     <Modal
-      onHide={hideModalHandler}
-      remove={removeAnimation}
+      onHide={() => hideMenuHandler(250, props.onHide)}
+      remove={modalCtx.removeAnimation}
       onMoveIn={styles.show__modal}
       onMoveOut={styles.remove__modal}
     >
@@ -113,7 +107,7 @@ const ProductModal = (props) => {
           setUserSeletedQuantity,
         }}
       >
-        <section className={modelSrcoll}>
+        <section className={styles.product__modal} style={modalStyle}>
           <div className="container">
             <div className="item">
               <div className="pic">
@@ -143,7 +137,7 @@ const ProductModal = (props) => {
               {singleSpecBuyQuantity}
             </div>
           </div>
-          <span className="icon cancel" onClick={hideModalHandler}>
+          <span className="icon cancel" onClick={() => hideMenuHandler(250, props.onHide)}>
             <HiX />
           </span>
         </section>

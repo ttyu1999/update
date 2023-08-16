@@ -38,9 +38,9 @@
             inset-inline: 0;
             z-index: 9;
             max-height: 8em;
+            overflow-y: auto;
             outline: 1px solid var(--dark__gray__color);
             outline-offset: -1px;
-            overflow: overlay;
             overscroll-behavior: contain;
             -ms-scroll-chaining: contain;
             background-color: var(--white__color);

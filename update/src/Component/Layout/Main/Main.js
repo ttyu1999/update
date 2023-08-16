@@ -19,7 +19,7 @@ const Main = () => {
     const [breadCrumbArray, setBreadCrumbArray] = useState([]);
 
     return (
-        <ProductListContext.Provider value={{products: PRODUCT__DATA, filterData, setFilterData, selectedCategory, setSelectedCategory, getProductLength, setGetProductLength, onePageItem: 16, breadCrumbArray, setBreadCrumbArray}}>
+        <ProductListContext.Provider value={{filterData, setFilterData, selectedCategory, setSelectedCategory, getProductLength, setGetProductLength, onePageItem: 16, breadCrumbArray, setBreadCrumbArray}}>
             <main>
                 <Sidebar />
                 <section className="product__content" id="product__content">
@@ -30,7 +30,7 @@ const Main = () => {
                     {/* 篩選器 */}
                     <FilterProduct />
                     {/* 商品列表 */}
-                    <ProductList products={PRODUCT__DATA} />
+                    <ProductList />
                     {/* 分頁 */}
                     <Pagination />
                 </section>

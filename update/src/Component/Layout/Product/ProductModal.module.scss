@@ -18,10 +18,9 @@
         border: none;
         border-radius: 1em;
         box-shadow: 0 0 1.5em #00000052;
-        max-height: 95vh;
         overscroll-behavior: contain;
         -ms-scroll-chaining: contain;
-
+        max-height: 95vh;
 
         .container {
             display: flex;
@@ -30,6 +29,7 @@
             align-items: center;
             gap: 1em;
             padding: 2.8em 1.8em;
+
 
             .item:nth-of-type(1) {
                 width: 0;
@@ -52,7 +52,7 @@
             
             .pic,
             .pic img {
-                aspect-ratio: 1/1;
+                aspect-ratio: 1 / 1;
                 object-fit: cover;
                 background-color: var(--white__color);
             }
@@ -96,56 +96,66 @@
                 .ori__price {
                     color: var(--dark__gray__color);
                     font-size: .75rem;
-                    text-decoration: line-through;
                 }
             }
 
             .purchase__buttons__box {
                 display: flex;
-                flex-wrap: wrap;
                 gap: .5em;
                 flex: 1 1 100%;
-            }
 
-            .btn {
-                color: var(--white__color);
-                flex: 8 1 200px;
-                padding: .9em 0;
-                cursor: pointer;
-                transition: background .3s ease-in-out;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-
-                span {
-                    font-size: 1em;
+                .btn {
                     color: var(--white__color);
-                }
-            }
-            
-            .quick__order__btn {
-                background-color: var(--light__pink__color);
+                    flex: 8 1 200px;
+                    padding: .9em 0;
+                    cursor: pointer;
+                    transition: background .3s ease-in-out;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+    
+                    span {
+                        font-size: 1em;
+                        color: var(--white__color);
+                    }
 
-                &:hover {
-                    background-color: var(--dark__pink__color);
-                }
-            }
-            
-            
-            .add__cart__btn {
-                background-color: var(--primary__color);
-
-                .icon {
-                    color: var(--white__color);
-                    font-size: 1.5em;
-                    padding-right: .25em;
-                    transition: color .3s ease-in-out;
+                    @media screen and (max-width: 768px) {
+                        span {
+                            font-size: .8em;
+                        } 
+                    }
                 }
 
-                &:hover {
-                    background-color: var(--dark__green__color);
+                .read__more__btn {
+                    background-color: var(--light__pink__color);
+    
+                    &:hover {
+                        background-color: var(--dark__pink__color);
+                    }
+                }
+                
+                
+                .add__cart__btn {
+                    background-color: var(--primary__color);
+    
+                    .icon {
+                        color: var(--white__color);
+                        font-size: 1.5em;
+                        padding-right: .25em;
+                        transition: color .3s ease-in-out;
+                    }
+    
+                    &:hover {
+                        background-color: var(--dark__green__color);
+                    }
                 }
             }
+        }
+
+        @media screen and (max-width: 768px) {
+            .container {
+                padding: 2em 1.2em;
+            } 
         }
         .cancel {
             position: fixed;

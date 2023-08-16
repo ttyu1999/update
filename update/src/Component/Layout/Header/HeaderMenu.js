@@ -2,27 +2,19 @@ import NavMenu from "./NavMenu";
 import styles from "./HeaderMenu.module.scss";
 import { HiX } from "react-icons/hi";
 import Modal from "../../../Component/UI/Modal";
-import { useState } from "react";
+import { useContext } from "react";
+import useHideModel from "../../../hook/useHideModal";
+import { ModalContext } from "../../../store/modal-context";
 
 const HeaderMenu = (props) => {
-  const [removeAnimation, setRemoveAnimation] = useState(false);
+  const modalCtx = useContext(ModalContext);
 
-  const hideMenuHandler = () => {
-    setRemoveAnimation(true);
-    const timer = setTimeout(() => {
-      props.onHide();
-      setRemoveAnimation(false);
-    }, 350);
-
-    return () => {
-      clearTimeout(timer);
-    };
-  };
+  const { hideMenuHandler } = useHideModel();
 
   return (
     <Modal
-      onHide={hideMenuHandler}
-      remove={removeAnimation}
+      onHide={() => hideMenuHandler(350, props.onHide)}
+      remove={modalCtx.removeAnimation}
       onMoveIn={styles.show__modal}
       onMoveOut={styles.remove__modal}
     >
@@ -30,12 +22,12 @@ const HeaderMenu = (props) => {
         <section className="menu__group">
           <header className="menu__header">
             <h2>MENU</h2>
-            <span className="icon menu__close" onClick={hideMenuHandler}>
+            <span className="icon menu__close" onClick={() => hideMenuHandler(350, props.onHide)}>
               <HiX />
             </span>
           </header>
           <nav className="menu">
-            <NavMenu onHide={hideMenuHandler} />
+            <NavMenu onHide={() => hideMenuHandler(350, props.onHide)} />
           </nav>
           <footer className="menu__footer">
             <ul>

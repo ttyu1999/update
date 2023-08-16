@@ -9,7 +9,7 @@ const ProductItem = (props) => {
 
     const { productImg, productName, productDesc, productSpecs, productOriPrice, productPrice } = product;
 
-    let oriPrice = productOriPrice && <span className="ori__price">NT${NumberWithCommas(productOriPrice)}</span>;
+    let oriPrice = productOriPrice && <p className="ori__price"><s>NT${NumberWithCommas(productOriPrice)}</s></p>;
 
     let stock;
 
@@ -43,7 +43,7 @@ const ProductItem = (props) => {
     return (
         <>
             <li className="product__list">
-                <a>
+                <a className="wrap">
                     <div className="pic">
                         <img src={productImg[0]} alt={productName} />
                         <img src={productImg[1]} alt={productName} />
@@ -54,7 +54,7 @@ const ProductItem = (props) => {
                     </div>
                     <div className="price__box">
                         {oriPrice}
-                        <span className="price">NT${NumberWithCommas(productPrice)}</span>
+                        <p className="price">NT${NumberWithCommas(productPrice)}</p>
                     </div>
                 </a>
                 {stock}

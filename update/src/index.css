@@ -32,7 +32,7 @@ body {
 body.commodity-mode {
   overflow: hidden;
   scrollbar-gutter: stable;
-  padding-right: 17px; /* 增加一個與滾輪同寬的padding */
+  padding-right: 17.5px; /* 增加一個與滾輪同寬的padding */
 }
 
 body .icon {

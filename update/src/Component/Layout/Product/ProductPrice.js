@@ -6,12 +6,12 @@ const ProductPrice = (props) => {
     const { productOriPrice, productPrice } = props;
 
     const ctx = useContext(SelectedProductContext);
-    let oriPrice = productOriPrice && <span className="ori__price">NT${NumberWithCommas(productOriPrice * ctx.userSeletedQuantity)}</span>;
+    let oriPrice = productOriPrice && <p className="ori__price">NT${NumberWithCommas(productOriPrice * ctx.userSeletedQuantity)}</p>;
 
     return (
         <div className="price__box">
             {oriPrice}
-            <span className="price">NT${NumberWithCommas(productPrice * ctx.userSeletedQuantity)}</span>
+            <p className="price">NT${NumberWithCommas(productPrice * ctx.userSeletedQuantity)}</p>
         </div>
     );
 }

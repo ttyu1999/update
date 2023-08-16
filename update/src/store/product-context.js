@@ -8,11 +8,9 @@ export const SelectedProductContext = React.createContext({
     isResetQuantity: false,
     userSeletedQuantity: 1,
     setUserSeletedQuantity: () => {},
-
 });
 
 export const ProductListContext = React.createContext({
-    products: [],
     filterData: [],
     setFilterData: () => {},
     selectedCategory: '',
