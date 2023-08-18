@@ -1,14 +1,15 @@
 import { HiOutlineSearch } from "react-icons/hi";
 import styles from "./HeaderSearch.module.scss";
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
-import { SearchContext } from "../../../store/product-context";
+import { SearchContext, PageContext } from "../../../store/product-context";
 
 const HeaderSearch = () => {
   const [removeAnimation, setRemoveAnimation] = useState(false);
   const [inputBoxHide, setInputBoxHide] = useState(true);
 
   const searchCtx = useContext(SearchContext);
-
+  const pageCtx = useContext(PageContext);
+  
   const containerRef = useRef();
   const inputRef = useRef();
 
@@ -19,7 +20,7 @@ const HeaderSearch = () => {
   const submitHandler = () => {
     let inputValue = inputRef.current.value;
     searchCtx.setSearchInputValue(inputValue);
-    searchCtx.setCurrentPage(1);
+    pageCtx.setCurrentPage(1);
 
     const element = document.getElementById('product__content');
 
@@ -83,7 +84,9 @@ const HeaderSearch = () => {
   );
 
   return (
-    <div
+    <button
+      type="button"
+      title="Search Button"
       className={styles.search}
       onClick={searchBoxHandler}
       ref={containerRef}
@@ -99,7 +102,7 @@ const HeaderSearch = () => {
           </span>
         </label>
       </form>
-    </div>
+    </button>
   );
 };
 

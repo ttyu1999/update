@@ -2,7 +2,7 @@ import { useCallback, useContext, useEffect, useState } from "react";
 import ProductItem from "./ProductItem";
 import styles  from './ProductList.module.scss';
 import ProductModal from "./ProductModal";
-import { ProductListContext, SearchContext } from "../../../store/product-context";
+import { ProductListFilter, CategoryContext, SearchContext, PageContext, GetProductLengthContext } from "../../../store/product-context";
 import PRODUCT_DATA from "../../../assets/product-data";
 
 
@@ -10,25 +10,30 @@ const ProductList = () => {
     const [shownProductModal, setShownProductModal] = useState(false);
     const [getProductId, setGetProductId] = useState('');
 
-    const ctx = useContext(ProductListContext);
-
+    const categoryCtx = useContext(CategoryContext);
+    const filterCtx = useContext(ProductListFilter);
     const searchCtx = useContext(SearchContext);
+    const pageCtx = useContext(PageContext);
+    const getProductLengthCtx = useContext(GetProductLengthContext);
 
-    const { setGetProductLength } = ctx;
+    const { selectedCategory } = categoryCtx;
+    const { filterData } = filterCtx;
+    const { searchInputValue } = searchCtx;
+    const { currentPage, onePageItem } = pageCtx;
 
     const selectCategoryHandler = useCallback((products) => {
         return products.filter(product => {
-            if (searchCtx.searchInputValue || !ctx.selectedCategory || ctx.selectedCategory === '000000') {
+            if (searchInputValue || !selectedCategory || selectedCategory === '000000') {
                 return product;
             } else {
-                return Object.values(product.productCategory).includes(ctx.selectedCategory);
+                return Object.values(product.productCategory).includes(selectedCategory);
             }
         });
-    }, [ctx.selectedCategory, searchCtx.searchInputValue]);
+    }, [selectedCategory, searchInputValue]);
 
     const searchProductHandler = useCallback((products) => {
-        return products.filter(product => product.productName.includes(searchCtx.searchInputValue) || product.productDesc.includes(searchCtx.searchInputValue));
-    }, [searchCtx.searchInputValue]);
+        return products.filter(product => product.productName.includes(searchInputValue) || product.productDesc.includes(searchInputValue));
+    }, [searchInputValue]);
 
 
     const combinedFilterAndSearch = useCallback((products) => {
@@ -38,12 +43,12 @@ const ProductList = () => {
     }, [selectCategoryHandler, searchProductHandler]);
 
     useEffect(() => {
-        setGetProductLength(combinedFilterAndSearch(PRODUCT_DATA));
-    }, [combinedFilterAndSearch, setGetProductLength, ctx.selectedCategory]);
+        getProductLengthCtx(combinedFilterAndSearch(PRODUCT_DATA).length);
+    }, [getProductLengthCtx, combinedFilterAndSearch]);
 
-        // 比較函數用於排序
+    // 比較函數用於排序
     const compareByTimeAndPrice = (a, b) => {
-        switch (ctx.filterData) {
+        switch (filterData) {
             case 'new__to__old':
                 return a.addedTime - b.addedTime; // 由新到舊
             case 'old__to__new':
@@ -60,8 +65,8 @@ const ProductList = () => {
 
     const filterProducts = combinedFilterAndSearch(PRODUCT_DATA).sort(compareByTimeAndPrice);
 
-    const startIndex = (searchCtx.currentPage - 1) * ctx.onePageItem;
-    const endIndex = ctx.onePageItem + startIndex;
+    const startIndex = (currentPage - 1) * onePageItem;
+    const endIndex = onePageItem + startIndex;
 
     const currentItems = filterProducts.slice(startIndex, endIndex);
 

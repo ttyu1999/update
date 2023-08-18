@@ -1,42 +1,57 @@
 import styles from "./Header.module.scss";
 import { HiOutlineMenu } from "react-icons/hi";
-import { HiOutlineShoppingCart } from "react-icons/hi";
-
+import { useState, useContext } from "react";
 import HeaderMenu from "./HeaderMenu";
 import HeaderSearch from "./HeaderSearch";
-import ShoppingCart from "./ShoppingCart";
 import HeaderLogo from "./HeaderLogo";
-import { useState } from "react";
+import HeaderLoginButton from "./HeaderLoginButton";
+import HeaderCartButton from "./HeaderCartButton";
+import Cart from "./Cart";
+import { CartContext } from "../../../store/cart-context";
 
 const Header = () => {
-    const [shownMenu, setShownMenu] = useState(false);
-    const [shownShoppingCart, setShownShoppingCart] = useState(false);
+  const [shownMenu, setShownMenu] = useState(false);
+  const [shownCart, setShownCart] = useState(false);
 
-    const modalHandler = (identifier) => {
-        identifier === 'showMenu' ? setShownMenu(true) : setShownMenu(false);
-        identifier === 'showCart' ? setShownShoppingCart(true) : setShownShoppingCart(false);
-    }
+  const cartCtx = useContext(CartContext);
+  const { items } = cartCtx;
 
-    return (
-        <header className={styles.header}>
-        <div className="group">
-            <HeaderLogo />
-            <div className="menu">
-                <span className="icon" onClick={() => modalHandler('showMenu')}>
-                    <HiOutlineMenu />
-                </span>
-            </div>
-            {shownMenu && <HeaderMenu onHide={() => modalHandler('hide')} />}
-            <HeaderSearch />
-            <div className="shopping__cart">
-                <span className="icon" onClick={() => modalHandler('showCart')}>
-                    <HiOutlineShoppingCart />
-                </span>
-            </div>
-            {shownShoppingCart && <ShoppingCart onHide={() => modalHandler('hide')} />}
-        </div>
-        </header>
-    );
+  const modalHandler = (identifier) => {
+    identifier === "showMenu" ? setShownMenu(true) : setShownMenu(false);
+    identifier === "showCart" ? setShownCart(true) : setShownCart(false);
+  };
+
+  const numberOfCartItems = items.reduce((curNumber, item) => {
+    return curNumber + item.selectedQuantity;
+  }, 0);
+
+  return (
+    <header className={styles.header}>
+      <div className="group">
+        <HeaderLogo />
+        <button type="button" title="Menu Button" className="menu" onClick={() => modalHandler("showMenu")}>
+          <span className="icon">
+            <HiOutlineMenu />
+          </span>
+        </button>
+        {shownMenu && <HeaderMenu onHide={() => modalHandler("hide")} />}
+        <HeaderSearch />
+
+        <HeaderCartButton
+          onShown={() => modalHandler("showCart")}
+          onNumber={numberOfCartItems}
+          items={items}
+        />
+        <HeaderLoginButton />
+        {shownCart && (
+          <Cart
+            onHide={() => modalHandler("hide")}
+            onNumber={numberOfCartItems}
+          />
+        )}
+      </div>
+    </header>
+  );
 };
 
 export default Header;

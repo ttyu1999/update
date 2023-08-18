@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { HiX } from "react-icons/hi";
 import ProductSelectSpec from "./ProductSelectSpec";
 import ProductPrice from "./ProductPrice";
@@ -8,12 +8,11 @@ import { SelectedProductContext } from "../../../store/product-context";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import styles from "./ProductModal.module.scss";
-
-import "./ProductModal.module.scss";
 import Modal from "../../UI/Modal";
 import PRODUCT_DATA from "../../../assets/product-data";
 import { ModalContext } from "../../../store/modal-context";
 import useHideModel from "../../../hook/useHideModal";
+import { CartContext } from "../../../store/cart-context";
 
 const ProductModal = (props) => {
   const [showBuyQuantity, setShowBuyQuantity] = useState('');
@@ -36,6 +35,16 @@ const ProductModal = (props) => {
   } = filterItem[0];
 
   const modalCtx = useContext(ModalContext);
+  const cartCtx = useContext(CartContext);
+
+  const { setProductId, setProductSpecId } = cartCtx;
+
+  useEffect(() => {
+    setProductId(id);
+    if (productSpecs.length === 1) {
+      setProductSpecId(productSpecs[0].id);
+    }
+  }, [setProductId, setProductSpecId, id, productSpecs]);
 
   const { hideMenuHandler } = useHideModel();
 
@@ -59,6 +68,10 @@ const ProductModal = (props) => {
   const specSelected = () => {
     setModelSrcoll(true);
   };
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+  }
 
 
   let swiperSlide = productImg?.map((img, index) => {
@@ -107,8 +120,8 @@ const ProductModal = (props) => {
           setUserSeletedQuantity,
         }}
       >
-        <section className={styles.product__modal} style={modalStyle}>
-          <div className="container">
+        <section className={styles.product__modal}>
+          <form className="container" onSubmit={submitHandler} style={modalStyle}>
             <div className="item">
               <div className="pic">
                 <Swiper
@@ -136,7 +149,7 @@ const ProductModal = (props) => {
               {showBuyQuantity}
               {singleSpecBuyQuantity}
             </div>
-          </div>
+          </form>
           <span className="icon cancel" onClick={() => hideMenuHandler(250, props.onHide)}>
             <HiX />
           </span>

@@ -5,12 +5,13 @@
         justify-content: center;
 
         li {
-            a {
+            button {
+                cursor: pointer;
                 padding: .4em .8em; 
             }
         }
 
-        .currentpage a {
+        .currentpage button {
             position: relative;
 
             &::after {

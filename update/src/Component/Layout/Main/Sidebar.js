@@ -1,5 +1,5 @@
 import styles from './Sidebar.module.scss';
-import { useState } from "react";
+import React, { useState } from "react";
 import { HiOutlineChevronDown } from "react-icons/hi";
 import MENU_DATA from '../../../assets/menu-data';
 import useFindMenuItem from '../../../hook/useFindMenuItem';
@@ -28,12 +28,12 @@ const Sidebar = () => {
                     <span>{menu.name}</span>
                 </button>
                 {menu.subMenus && (
-                    <span
+                    <button type="button"
                         className={`icon${isSubMenuExpanded ? ' rotate' : ''}`}
                         onClick={() => arrowClickHandler(menu.id)}
                     >
                         <HiOutlineChevronDown />
-                    </span>
+                    </button>
                 )}
                 {menu.subMenus && (
                     <div className="drop__down sub__menu" style={{ gridTemplateRows: isSubMenuExpanded ? '1fr' : '' }}>

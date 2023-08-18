@@ -1,16 +1,17 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useContext } from 'react';
 import styles from './Pagination.module.scss';
-import { ProductListContext, SearchContext } from '../../../store/product-context';
+import { PageContext } from '../../../store/product-context';
 
 const Pagination = () => {
-    const ctx = useContext(ProductListContext);
-    const searchCtx = useContext(SearchContext);
+    const pageCtx = useContext(PageContext);
 
-    const totalPages = Math.ceil(ctx.getProductLength.length / ctx.onePageItem);
+    const { getProductLength, onePageItem, currentPage, setCurrentPage } = pageCtx;
+
+    const totalPages = Math.ceil(getProductLength / onePageItem);
 
     const handlePageChange = (page) => {
-        searchCtx.setCurrentPage(page);
+        setCurrentPage(page);
 
         const element = document.getElementById('product__content');
 
@@ -22,16 +23,16 @@ const Pagination = () => {
 
     let hasPage;
 
-    if (ctx.getProductLength.length > ctx.onePageItem) {
+    if (getProductLength > onePageItem) {
         hasPage = (
             <ul className={styles.pagination}>
                 {
                     Array.from({ length: totalPages }, (_, index) => {
                         return (
-                            <li key={index} className={searchCtx.currentPage === index + 1 ? 'currentpage' : ''} onClick={() => handlePageChange(index + 1)}>
-                                <a>
+                            <li key={index} className={currentPage === index + 1 ? 'currentpage' : ''} onClick={() => handlePageChange(index + 1)}>
+                                <button type="button">
                                     <span>{index + 1}</span>
-                                </a>
+                                </button>
                             </li>
                         );
                     })

@@ -1,17 +1,17 @@
-import { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import styles from './BreadCrumb.module.scss';
-import { ProductListContext, SearchContext } from '../../../store/product-context';
+import { CategoryContext, SearchContext } from '../../../store/product-context';
 import useFindMenuItem from '../../../hook/useFindMenuItem';
 
 const BreadCrumb = () => {
-    const ctx = useContext(ProductListContext);
+    const categoryCtx = useContext(CategoryContext);
     const searchCtx = useContext(SearchContext);
     
     const { categoriesClick } = useFindMenuItem();
 
     const breadCrumbs = searchCtx.searchInputValue
     ? [{ id: '000000', name: '全館商品' }]
-    : ctx.breadCrumbArray;
+    : categoryCtx.breadCrumbArray;
 
     return (
         <ol className={styles.breadcrumb}>

@@ -2,19 +2,25 @@ import React, { useCallback } from 'react';
 import { useContext } from 'react';
 import styles from './ProductSpecList.module.scss';
 import { SelectedProductContext } from '../../../store/product-context';
+import { CartContext } from '../../../store/cart-context';
 
 const ProductSpecList = (props) => {
     const { productSpec, onSelected } = props;
     const ctx = useContext(SelectedProductContext);
+    const cartCtx = useContext(CartContext);
+
+    const { buyQuantityHandler, resetQuantity } = ctx;
+    const { setProductSpecId } = cartCtx;
     
     const selectedHandler = useCallback(() => {
         let stock = productSpec.stock;
         if (stock > 0) {
             onSelected(productSpec.specName);
-            ctx.buyQuantityHandler(stock);
-            ctx.resetQuantity();
+            buyQuantityHandler(stock);
+            resetQuantity();
+            setProductSpecId(productSpec.id);
         }
-    }, [productSpec, onSelected, ctx]);
+    }, [productSpec, onSelected, buyQuantityHandler, resetQuantity, setProductSpecId]);
 
     const isSoldOut = !productSpec.stock ? styles.soldout : '';
 

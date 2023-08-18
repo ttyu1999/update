@@ -3,15 +3,17 @@ import { HiOutlineChevronRight } from "react-icons/hi";
 import { HiOutlineChevronLeft } from "react-icons/hi";
 import { HiX } from "react-icons/hi";
 import MENU_DATA from "../../../assets/menu-data";
+import useFindMenuItem from "../../../hook/useFindMenuItem";
 
 const NavMenu = (props) => {
 
     const { onHide } = props;
+    const { categoriesClick } = useFindMenuItem();
 
     const renderListItem = useCallback((menu) => {
         return (
             <li key={menu.id}>
-                <button type="button">{menu.name}</button>
+                <button type="button" onClick={() => categoriesClick(menu.id, onHide)}>{menu.name}</button>
                 {menu.subMenus && 
                 <>
                     <input type="checkbox" id={menu.id} />

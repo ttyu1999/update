@@ -6,7 +6,6 @@ import { SelectedProductContext } from '../../../store/product-context';
 
 const ProductSelectSpec = (props) => {
     const { productSpecs } = props;
-
     const [ filterList, setFilterList ] = useState(false);
     const [ selectDefault, setSelectDefault ] = useState('請選擇規格');
 

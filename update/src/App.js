@@ -1,23 +1,26 @@
 import Header from "./Component/Layout/Header/Header";
 import Main from "./Component/Layout/Main/Main";
 import Footer from "./Component/Layout/Footer/Footer";
-import { SearchContext } from "./store/product-context";
-import { useState } from "react";
-import { ModalContext } from "./store/modal-context";
+import { SearchProvide, CategoryProvide } from "./store/product-context";
+import { ModalProvide } from "./store/modal-context";
+import { CartProvide } from "./store/cart-context";
 
 const App = () => {
-  const [searchInputValue, setSearchInputValue] = useState('');
-  const [currentPage, setCurrentPage] = useState(1);
-  const [removeAnimation, setRemoveAnimation] = useState(false);
 
   return (
-    <SearchContext.Provider value={{searchInputValue, setSearchInputValue, currentPage, setCurrentPage}}>
-      <ModalContext.Provider value={{removeAnimation, setRemoveAnimation}}>
-        <Header />
-        <Main />
-        <Footer />
-      </ModalContext.Provider>
-    </SearchContext.Provider>
+    <>
+      <CartProvide>
+        <CategoryProvide>
+          <SearchProvide>
+            <ModalProvide>
+              <Header />
+              <Main />
+            </ModalProvide>
+          </SearchProvide>
+        </CategoryProvide>
+      </CartProvide>
+      <Footer />
+    </>
   );
 };
 

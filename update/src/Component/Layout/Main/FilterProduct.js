@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import FormSelect from '../../UI/FormSelect';
-import { ProductListContext } from '../../../store/product-context';
+import { ProductListFilter } from '../../../store/product-context';
 import FILTER_DATA from '../../../assets/filter-data';
 
 
@@ -8,7 +8,7 @@ const FilterProduct = () => {
     const [ filterList, setFilterList ] = useState(false);
     const [ selectDefault, setSelectDefault ] = useState('上架時間：由新到舊');
 
-    const ctx = useContext(ProductListContext);
+    const ctx = useContext(ProductListFilter);
 
     const selectedHandler = (key, value) => {
         setSelectDefault(value[0]);

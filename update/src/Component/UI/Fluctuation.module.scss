@@ -28,6 +28,12 @@
                     color: var(--white__color);
                 }
             }
+
+            @media screen and (max-width: 769px) {
+                .icon {
+                    font-size: .85rem;
+                }
+            }
         }
 
         .user__buy__quantity {

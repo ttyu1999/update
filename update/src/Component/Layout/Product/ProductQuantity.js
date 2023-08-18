@@ -2,6 +2,7 @@ import React, { useCallback, useContext, useEffect, useState } from "react";
 import styles from './ProductQuantity.module.scss';
 import { SelectedProductContext } from "../../../store/product-context";
 import Fluctuation from "../../UI/Fluctuation";
+import { CartContext } from "../../../store/cart-context";
 
 const ProductQuantity =(props) => {
     const { singleSpecStock, multipleSpecStock, onResetQuantity } = props;
@@ -9,6 +10,7 @@ const ProductQuantity =(props) => {
     const [ isStockShortage, setisStockShortage ] = useState(false);
 
     const ctx = useContext(SelectedProductContext);
+    const cartCtx = useContext(CartContext);
 
     useEffect(() => {
         if (ctx.isResetQuantity) {
@@ -18,7 +20,9 @@ const ProductQuantity =(props) => {
     }, [onResetQuantity, ctx.isResetQuantity]);
 
     useEffect(() => {
+        console.log(inputValue);
         ctx.setUserSeletedQuantity(inputValue);
+        cartCtx.setSelectedQuantity(inputValue);
     });
 
     const stockShortage = !isStockShortage || <p className={styles.stock__shortage}>庫存不足，無法訂購您選擇之數量</p>;

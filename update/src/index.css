@@ -30,7 +30,7 @@ body {
 }
 
 body.commodity-mode {
-  overflow: hidden;
+  overflow-y: hidden;
   scrollbar-gutter: stable;
   padding-right: 17.5px; /* 增加一個與滾輪同寬的padding */
 }
@@ -49,6 +49,7 @@ a {
 }
 
 button {
+  cursor: pointer;
   border: none;
   outline: none;
   background-color: transparent;
