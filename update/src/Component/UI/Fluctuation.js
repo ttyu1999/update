@@ -4,7 +4,7 @@ import { HiOutlinePlusSm } from "react-icons/hi";
 
 const Fluctuation = (props) => {
     return (
-        <div className={styles.quantity__box}>
+        <div className={`${styles.quantity__box} ${props.className ? props.className : ''}`}>
             <button
                 type="button"
                 className="control__quantity decrease"

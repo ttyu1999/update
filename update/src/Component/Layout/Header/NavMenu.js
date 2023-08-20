@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useCallback } from "react";
 import { HiOutlineChevronRight } from "react-icons/hi";
 import { HiOutlineChevronLeft } from "react-icons/hi";
@@ -45,10 +46,13 @@ const NavMenu = (props) => {
                 }
             </li> 
         );
-    }, [onHide]);
+    }, [onHide, categoriesClick]);
 
     return (
         <ul>
+            <li>
+                <Link to="/" onClick={() => categoriesClick(null, onHide)}>首頁</Link>
+            </li>
             {MENU_DATA.map(menu => renderListItem(menu, menu.subMenus))}
         </ul>
     )

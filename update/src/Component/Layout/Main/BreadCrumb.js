@@ -1,33 +1,34 @@
-import React, { useContext } from 'react';
-import styles from './BreadCrumb.module.scss';
-import { CategoryContext, SearchContext } from '../../../store/product-context';
-import useFindMenuItem from '../../../hook/useFindMenuItem';
+import { Link } from "react-router-dom";
+import styles from "./BreadCrumb.module.scss";
 
-const BreadCrumb = () => {
-    const categoryCtx = useContext(CategoryContext);
-    const searchCtx = useContext(SearchContext);
-    
-    const { categoriesClick } = useFindMenuItem();
-
-    const breadCrumbs = searchCtx.searchInputValue
-    ? [{ id: '000000', name: '全館商品' }]
-    : categoryCtx.breadCrumbArray;
-
-    return (
-        <ol className={styles.breadcrumb}>
-            <li>
-                <button type="button">首頁</button>
+const BreadCrumb = (props) => {
+  return (
+    <ol
+      className={`${styles.breadcrumb} ${
+        props.className ? props.className : ""
+      }`}
+    >
+      <li key="home">
+        <Link to="/">
+          <button type="button">首頁</button>
+        </Link>
+      </li>
+      <li key="product">
+        <Link to="/product">
+          <button type="button">全館商品</button>
+        </Link>
+      </li>
+      {props.breadCrumbs &&
+        props.breadCrumbs.map((breadcrumb) => {
+          return (
+            <li key={breadcrumb.id}>
+              <Link to={`/product/${breadcrumb.id}`}>
+                <button type="button">{breadcrumb.name}</button>
+              </Link>
             </li>
-            {
-                breadCrumbs.map((breadCrumb) => {
-                    return (
-                        <li key={breadCrumb.id}>
-                            <button type="button" onClick={() => categoriesClick(breadCrumb.id)}>{breadCrumb.name}</button>
-                        </li>
-                    );
-                })
-            }
-        </ol>
-    )
-}
+          );
+        })}
+    </ol>
+  );
+};
 export default BreadCrumb;

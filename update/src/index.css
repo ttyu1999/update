@@ -4,14 +4,16 @@
   --white__translucent__color: #ffffffeb;
   --primary__color: #58b086;
   --dotted__color: #8cc8ac;
+  --light__green__color: #aed6c3;
   --dark__green__color: #077f67;
   --light__gray__color: #eee;
   --middle__gray__color: #585858;
   --dark__gray__color: #ccc;
   --black__color: #242424;
   --gray__black__color: #3d3d3d;
-  --light__pink__color: #f27070;
+  --light__pink__color: #f87e7e;
   --dark__pink__color: #eb6565;
+  --orange__color: #f07050;
 }
 
 *, *::before, *::after {
@@ -49,11 +51,12 @@ a {
 }
 
 button {
+  line-height: 1;
   cursor: pointer;
   border: none;
   outline: none;
   background-color: transparent;
-  letter-spacing: 1px;
+  letter-spacing: .1rem;
 }
 
 input:focus {

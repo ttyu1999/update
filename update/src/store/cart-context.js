@@ -87,7 +87,7 @@ const cartReducer = (state, action) => {
 };
 
 export const CartProvide = ({ children }) => {
-  const [productId, setProductId] = useState("");
+  const [productId, setProductId] = useState("B0301001");
   const [productSpecId, setProductSpecId] = useState("");
   const [selectedQuantity, setSelectedQuantity] = useState(1);
   const [cartState, dispatchCartAction] = useReducer(

@@ -1,62 +1,97 @@
+import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
-import { SetCategoryContext, SearchContext, PageContext } from "../store/product-context";
+import {
+  SearchContext,
+  PageContext,
+} from "../store/product-context";
 import MENU_DATA from "../assets/menu-data";
 
 const useFindMenuItem = () => {
-    const setCategoryCtx = useContext(SetCategoryContext);
-    const searchCtx = useContext(SearchContext);
-    const pageCtx = useContext(PageContext);
+  const searchCtx = useContext(SearchContext);
+  const pageCtx = useContext(PageContext);
 
-    const { setBreadCrumbArray, setSelectedCategory } = setCategoryCtx;
+  const navigate = useNavigate();
 
-    const findMenuItemAndParents = (itemId, menuData) => {
-        const recursiveFind = (menuItem, parents) => {
-            if (menuItem.id === itemId) {
-                if (menuItem.id === '000000') {
-                    return setBreadCrumbArray([...parents, menuItem]);
-                } else {
-                    return setBreadCrumbArray([MENU_DATA[0],...parents, menuItem]);
-                }
-            }
-    
-            if (menuItem.subMenus) {
-                for (const subMenu of menuItem.subMenus) {
-                    const found = recursiveFind(subMenu, [...parents, menuItem]);
-                    if (found) {
-                        return found;
-                    }
-                }
-            }
-    
-            return null;
+  const findMenuItem = (itemId, categoryData) => {
+    const recursiveFind = (menuItem) => {
+      if (menuItem.id === itemId) {
+        if ('000000' !== itemId) {
+            return navigate(`/product/${itemId}`);
+        } else {
+            return navigate(`/product`);
         }
-    
-        for (const menu of menuData) {
-            const result = recursiveFind(menu, []);
-            if (result) {
-                return result;
-            }
+      }
+
+      if (menuItem.subMenus) {
+        for (const subMenu of menuItem.subMenus) {
+          const found = recursiveFind(subMenu);
+          if (found) {
+            return found;
+          }
         }
-    
-        return null;
+      }
+
+      return null;
+    };
+
+    for (const menu of categoryData) {
+      const result = recursiveFind(menu, []);
+      if (result) {
+        return result;
+      }
     }
 
-    const categoriesClick = (categoryId, onHide = null) => {
-        findMenuItemAndParents(categoryId, MENU_DATA);
-        setSelectedCategory(categoryId);
-        pageCtx.setCurrentPage(1);
-        searchCtx.setSearchInputValue('');
-        onHide && onHide();
+    return null;
+  };
 
-        const element = document.getElementById('product__content');
 
-        element.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-        });
+  const getParentCategoryIds = (itemId, categoryData) => {
+    const recursiveFind = (categoryItem, parents) => {
+      if (categoryItem.id === itemId) {
+        return [...parents, categoryItem.id];
+      }
+
+      if (categoryItem.subCategory) {
+        const found = recursiveFind(categoryItem.subCategory, [
+          ...parents,
+          categoryItem.id,
+        ]);
+        if (found) {
+          return found;
+        }
+      }
+
+      return null;
+    };
+
+    for (const category of categoryData) {
+      const result = recursiveFind(category, []);
+      if (result) {
+        return result;
+      }
     }
 
-    return { categoriesClick };
-}
+    return null;
+  };
+
+  const categoriesClick = (categoryId, onHide = null) => {
+    const result = findMenuItem(categoryId, MENU_DATA);
+    if (result) {
+      navigate(result);
+    }
+    pageCtx.setCurrentPage(1);
+    searchCtx.setSearchInputValue("");
+    onHide && onHide();
+
+    const body = document.body;
+
+    body.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
+
+  return { categoriesClick, findMenuItem, getParentCategoryIds };
+};
 
 export default useFindMenuItem;

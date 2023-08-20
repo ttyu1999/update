@@ -9,7 +9,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import styles from "./ProductModal.module.scss";
 import Modal from "../../UI/Modal";
-import PRODUCT_DATA from "../../../assets/product-data";
 import { ModalContext } from "../../../store/modal-context";
 import useHideModel from "../../../hook/useHideModal";
 import { CartContext } from "../../../store/cart-context";
@@ -20,9 +19,7 @@ const ProductModal = (props) => {
   const [isResetQuantity, setIsResetQuantity] = useState(false);
   const [userSeletedQuantity, setUserSeletedQuantity] = useState(1);
 
-  const filterItem = PRODUCT_DATA.filter(
-    (product) => product.id === props.productItem
-  );
+  const { product } = props;
 
   const {
     id,
@@ -32,7 +29,7 @@ const ProductModal = (props) => {
     productSpecs,
     productOriPrice,
     productPrice,
-  } = filterItem[0];
+  } = product;
 
   const modalCtx = useContext(ModalContext);
   const cartCtx = useContext(CartContext);
@@ -60,7 +57,7 @@ const ProductModal = (props) => {
           multipleSpecStock={stock}
           onResetQuantity={resetQuantity}
         />
-        <ProductPurchase />
+        <ProductPurchase product={props.product} />
       </>
     );
   };
@@ -96,7 +93,7 @@ const ProductModal = (props) => {
           singleSpecStock={productSpecs[0].stock}
           onResetQuantity={resetQuantity}
         />
-        <ProductPurchase />
+        <ProductPurchase product={props.product} />
       </>
     );
   }

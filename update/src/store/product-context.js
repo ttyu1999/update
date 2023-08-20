@@ -1,3 +1,4 @@
+import { useParams } from "react-router-dom";
 import React, { useState } from "react";
 
 export const SelectedProductContext = React.createContext({

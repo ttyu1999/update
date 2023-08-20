@@ -12,18 +12,23 @@ const ProductQuantity =(props) => {
     const ctx = useContext(SelectedProductContext);
     const cartCtx = useContext(CartContext);
 
+    const { isResetQuantity, setUserSeletedQuantity } = ctx;
+
+    const { setSelectedQuantity } = cartCtx;
+
+    console.log('數量');
+
     useEffect(() => {
-        if (ctx.isResetQuantity) {
+        if (isResetQuantity) {
             setInputValue(1);
             setisStockShortage(false);
         }
-    }, [onResetQuantity, ctx.isResetQuantity]);
+    }, [onResetQuantity, isResetQuantity]);
 
     useEffect(() => {
-        console.log(inputValue);
-        ctx.setUserSeletedQuantity(inputValue);
-        cartCtx.setSelectedQuantity(inputValue);
-    });
+        setUserSeletedQuantity(inputValue);
+        setSelectedQuantity(inputValue);
+    }, [setUserSeletedQuantity, setSelectedQuantity, inputValue]);
 
     const stockShortage = !isStockShortage || <p className={styles.stock__shortage}>庫存不足，無法訂購您選擇之數量</p>;
 
@@ -64,6 +69,7 @@ const ProductQuantity =(props) => {
                 onIncrease={() => quantityHandler('increase')}
                 onGetUserInputValue={getUserInputValue}
                 onInputValue={inputValue}
+                className={props.className}
             />
             {stockShortage}
         </>

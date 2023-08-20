@@ -5,6 +5,7 @@
 
 .select {
     :global {
+        flex: 1 1 100%;
         font-size: .8em;
         width: 100%;
         border: 1px solid var(--dark__gray__color);
@@ -12,13 +13,14 @@
         position: relative;
     
         .select__filter {
-            padding: .5em;
+            padding: .5rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: space-between;
 
             button {
+                line-height: 1.5;
                 color: var(--black__color);
                 cursor: pointer;
             }

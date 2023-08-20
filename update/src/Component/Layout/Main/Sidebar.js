@@ -1,12 +1,12 @@
 import styles from './Sidebar.module.scss';
 import React, { useState } from "react";
+
 import { HiOutlineChevronDown } from "react-icons/hi";
 import MENU_DATA from '../../../assets/menu-data';
 import useFindMenuItem from '../../../hook/useFindMenuItem';
 
 const Sidebar = () => {
     const [ expandedState, setExpandedState ] = useState({});
-
     const { categoriesClick } = useFindMenuItem();
 
     const arrowClickHandler = (id) => {

@@ -1,8 +1,11 @@
+import { Link } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
-import 'swiper/css'; 
+import "swiper/css";
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 
-import AD_BANNER_IMG from '../../../assets/ad-banner-img';
+import AD_BANNER_IMG from './../assets/ad-banner-img';
 
 const BannerCarousel = () => {
 
@@ -16,13 +19,14 @@ const BannerCarousel = () => {
             }}
             navigation
             pagination={{ clickable: true }}
+            className="mySwiper"
         >
             {AD_BANNER_IMG.map((img) => {
                 return (
                     <SwiperSlide key={img.id}>
-                        <a>
+                        <Link to="/product">
                             <img src={img.url} alt={img.name} />
-                        </a>
+                        </Link>
                     </SwiperSlide>
                 );
             })}

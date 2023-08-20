@@ -1,3 +1,4 @@
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import styles from "./Header.module.scss";
 import { HiOutlineMenu } from "react-icons/hi";
 import { useState, useContext } from "react";

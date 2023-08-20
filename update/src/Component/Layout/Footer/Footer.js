@@ -12,7 +12,7 @@ const Footer = () => {
                 <div className="logo__info">
                     <a href="#">
                         <h2>
-                            <img src="img/logo.png" alt="INNISFREE" />
+                            <img src="/img/logo.png" alt="INNISFREE" />
                         </h2>
                     </a> 
                     <div className="brand__icon">
