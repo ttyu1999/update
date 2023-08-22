@@ -5,32 +5,29 @@ import Fluctuation from "../../UI/Fluctuation";
 import { CartContext } from "../../../store/cart-context";
 
 const ProductQuantity =(props) => {
-    const { singleSpecStock, multipleSpecStock, onResetQuantity } = props;
+    const { singleSpecStock, multipleSpecStock, setUserSeletedQuantity } = props;
     const [ inputValue, setInputValue ] = useState(1);
     const [ isStockShortage, setisStockShortage ] = useState(false);
 
-    const ctx = useContext(SelectedProductContext);
+    const selectedProductCtx = useContext(SelectedProductContext);
+    const { isResetQuantity } = selectedProductCtx;
+
     const cartCtx = useContext(CartContext);
-
-    const { isResetQuantity, setUserSeletedQuantity } = ctx;
-
     const { setSelectedQuantity } = cartCtx;
-
-    console.log('數量');
 
     useEffect(() => {
         if (isResetQuantity) {
             setInputValue(1);
             setisStockShortage(false);
         }
-    }, [onResetQuantity, isResetQuantity]);
+    }, [isResetQuantity]);
 
     useEffect(() => {
-        setUserSeletedQuantity(inputValue);
+        setUserSeletedQuantity && setUserSeletedQuantity(inputValue);
         setSelectedQuantity(inputValue);
     }, [setUserSeletedQuantity, setSelectedQuantity, inputValue]);
 
-    const stockShortage = !isStockShortage || <p className={styles.stock__shortage}>庫存不足，無法訂購您選擇之數量</p>;
+    const stockShortage = !isStockShortage || <p className={`${styles.stock__shortage} ${props.stockClassName ? props.stockClassName : ''}`}>庫存不足，無法訂購您選擇之數量</p>;
 
     const quantityHandler = useCallback((fluctuation) => {
         if (fluctuation === 'decrease') {

@@ -12,15 +12,7 @@ const Cart = (props) => {
   const modalCtx = useContext(ModalContext);
   const cartCtx = useContext(CartContext);
 
-  const { items, addToCart, removeToCart, totalAmount } = cartCtx;
-
-  const cartItemAddHandler = (item) => {
-    addToCart({ ...item, amount: 1 });   
-  };
-
-  const cartItemRemoveHandler = (id) => {
-    removeToCart(id);
-  };
+  const { items, totalAmount } = cartCtx;
 
   let withoutItem;
 
@@ -56,8 +48,6 @@ const Cart = (props) => {
                   <CartItem
                     key={item.specId}
                     item={item}
-                    onAdd={cartItemAddHandler}
-                    onRemove={cartItemRemoveHandler}
                   />
                 );
               })}

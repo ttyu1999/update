@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useCallback } from "react";
 import { HiOutlineChevronRight } from "react-icons/hi";
 import { HiOutlineChevronLeft } from "react-icons/hi";
@@ -14,12 +14,21 @@ const NavMenu = (props) => {
     (menu) => {
       return (
         <li key={menu.id}>
-          <Link
-            to={`/product/${menu.id}`}
-            onClick={() => categoriesClick(menu.id, onHide)}
-          >
-            {menu.name}
-          </Link>
+          {menu.id === "000000" ? (
+            <Link
+              to={`/product`}
+              onClick={() => categoriesClick(menu.id, onHide)}
+            >
+              {menu.name}
+            </Link>
+          ) : (
+            <NavLink
+              to={`/product/${menu.id}`}
+              onClick={() => categoriesClick(menu.id, onHide)}
+            >
+              {menu.name}
+            </NavLink>
+          )}
           {menu.subMenus && (
             <>
               <input type="checkbox" id={menu.id} />
@@ -61,9 +70,9 @@ const NavMenu = (props) => {
   return (
     <ul>
       <li>
-        <Link to="/" onClick={() => categoriesClick(null, onHide)}>
+        <NavLink to="/" onClick={() => categoriesClick(null, onHide)}>
           首頁
-        </Link>
+        </NavLink>
       </li>
       {MENU_DATA.map((menu) => renderListItem(menu, menu.subMenus))}
     </ul>

@@ -1,45 +1,34 @@
-import { useParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
+
 import React, { useState } from "react";
 
 export const SelectedProductContext = React.createContext({
-  buyQuantityHandler: () => {},
-  resetQuantity: () => {},
-  specSelected: () => {},
+  getSpecStock: 0,
+  setGetSpecStock: () => {},
   isResetQuantity: false,
-  userSeletedQuantity: 1,
-  setUserSeletedQuantity: () => {},
+  setIsResetQuantity: () => {},
+  modelSrcoll: false,
+  setModelSrcoll: () => {},
 });
 
-export const CategoryContext = React.createContext({
-  selectedCategory: "",
-  breadCrumbArray: [],
-});
-
-export const SetCategoryContext = React.createContext({
-  setSelectedCategory: () => {},
-  setBreadCrumbArray: () => {},
-});
-
-export const CategoryProvide = ({ children }) => {
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [breadCrumbArray, setBreadCrumbArray] = useState([]);
+export const SelectedProductProvide = ({ children }) => {
+  const [getSpecStock, setGetSpecStock] = useState(0);
+  const [isResetQuantity, setIsResetQuantity] = useState(false);
+  const [modelSrcoll, setModelSrcoll] = useState(false);
 
   return (
-    <CategoryContext.Provider
+    <SelectedProductContext.Provider
       value={{
-        selectedCategory,
-        breadCrumbArray,
+        getSpecStock,
+        setGetSpecStock,
+        isResetQuantity,
+        setIsResetQuantity,
+        modelSrcoll,
+        setModelSrcoll,
       }}
     >
-      <SetCategoryContext.Provider
-        value={{
-          setSelectedCategory,
-          setBreadCrumbArray,
-        }}
-      >
-        {children}
-      </SetCategoryContext.Provider>
-    </CategoryContext.Provider>
+      {children}
+    </SelectedProductContext.Provider>
   );
 };
 
@@ -66,16 +55,21 @@ export const ProductListFilterProvide = ({ children }) => {
 export const SearchContext = React.createContext({
   searchInputValue: "",
   setSearchInputValue: () => {},
+  searchParams: "",
+  setSearchParams: () => {},
 });
 
 export const SearchProvide = ({ children }) => {
   const [searchInputValue, setSearchInputValue] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
 
   return (
     <SearchContext.Provider
       value={{
         searchInputValue,
         setSearchInputValue,
+        searchParams,
+        setSearchParams,
       }}
     >
       {children}
@@ -108,9 +102,7 @@ export const PageProvide = ({ children }) => {
         onePageItem: 16,
       }}
     >
-      <GetProductLengthContext.Provider
-        value={setGetProductLength}
-      >
+      <GetProductLengthContext.Provider value={setGetProductLength}>
         {children}
       </GetProductLengthContext.Provider>
     </PageContext.Provider>

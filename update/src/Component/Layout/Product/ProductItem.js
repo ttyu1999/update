@@ -1,10 +1,11 @@
 import { Link, useParams } from "react-router-dom";
 import React, { useCallback } from "react";
 import styles from "./ProductItem.module.scss";
+import classes from './ProductPrice.module.scss';
 import { HiOutlineEye } from "react-icons/hi";
-import ProductPrice from "./ProductPrice";
 import useBreadCrumb from "../../../hook/useBreadCrumb";
 import MENU_DATA from "../../../assets/menu-data";
+import NumberWithCommas from "../../Provider/NumberWithCommas";
 
 const ProductItem = (props) => {
   const { getProductBreadCrumb, findMenuByCategoryId } = useBreadCrumb();
@@ -56,6 +57,8 @@ const ProductItem = (props) => {
     stock = <p className={styles.isSoldOut}>暫無存貨</p>;
   }
 
+  let oriPrice = productOriPrice && <p className="ori__price">NT${NumberWithCommas(productOriPrice)}</p>;
+
   return (
     <>
       <li className={styles.product__list}>
@@ -72,10 +75,10 @@ const ProductItem = (props) => {
             <h2>{productName}</h2>
             <p>{productDesc}</p>
           </div>
-          <ProductPrice
-            productOriPrice={productOriPrice}
-            productPrice={productPrice}
-          />
+          <div className={classes.price__box}>
+            {oriPrice}
+            <p className="price">NT${NumberWithCommas(productPrice)}</p>
+        </div>
         </Link>
         {stock}
       </li>

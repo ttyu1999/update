@@ -1,7 +1,8 @@
+import React, { useContext } from "react";
 import NumberWithCommas from "../../Provider/NumberWithCommas";
 import { HiOutlineTrash } from "react-icons/hi";
 import Fluctuation from "../../UI/Fluctuation";
-import { useState } from "react";
+import { CartContext } from "../../../store/cart-context";
 
 const CartItem = (props) => {
   const {
@@ -14,28 +15,30 @@ const CartItem = (props) => {
     stock,
     selectedQuantity,
   } = props.item;
+  
+  const cartCtx = useContext(CartContext);
+  const { addToCart, removeToCart } = cartCtx;
 
-  const [inputValue, setInputValue] = useState(selectedQuantity);
 
   const quantityHandler = (fluctuation) => {
     if (fluctuation === "decrease") {
-      if (inputValue > 1) {
-        setInputValue((prevState) => prevState - 1);
+      if (selectedQuantity > 1) {
+        removeToCart(specId);
       }
-      props.onRemove(specId);
     } else if (fluctuation === "increase") {
-      if (inputValue < stock) {
-        setInputValue((prevState) => prevState + 1);
+      if (selectedQuantity < stock) {
+        addToCart({ ...props.item, selectedQuantity: 1 });
       }
-      props.onAdd({ ...props.item, selectedQuantity: 1 });
-    } else {
-      props.onRemove({specId, selectedQuantity: 0});
+    } else if (fluctuation === "delete") {
+      removeToCart({ specId, selectedQuantity: 0 });
     }
   };
 
   const getUserInputValue = (e) => {
     e.preventDefault();
   };
+
+  console.log(selectedQuantity);
 
   return (
     <li className="product__list">
@@ -62,7 +65,7 @@ const CartItem = (props) => {
             onIncrease={() => quantityHandler("increase")}
             onDecrease={() => quantityHandler("decrease")}
             onGetUserInputValue={getUserInputValue}
-            onInputValue={inputValue}
+            onInputValue={selectedQuantity}
             disabled="disabled"
           />
           <div className="delete" onClick={() => quantityHandler("delete")}>
@@ -72,7 +75,7 @@ const CartItem = (props) => {
           </div>
         </div>
         <div className="total__amount">
-          <p>NT${NumberWithCommas(productPrice * inputValue)}</p>
+          <p>NT${NumberWithCommas(productPrice * selectedQuantity)}</p>
         </div>
       </div>
     </li>

@@ -23,6 +23,7 @@
 
             h2 {
                 font-weight: 500;
+                font-size: 1.25rem;
             }
 
             .icon {
@@ -33,20 +34,21 @@
             }
 
             .btn {
+                --seconds: .3s;
                 color: var(--dark__green__color);
-                width: 7rem;
+                width: 8rem;
                 padding: .7rem 1.4rem;
                 margin: .5rem;
                 background-color: var(--white__translucent__color);
                 border-radius: 1.5rem;
-                transition: color .2s ease-in-out,
-                            background-color .2s ease-in-out,
-                            transform .2s ease-in-out;
+                transition: color var(--seconds) ease-in-out,
+                            background-color var(--seconds) ease-in-out,
+                            transform var(--seconds) ease-in-out;
 
                 &:hover {
                     color: var(--white__color);
                     background-color: var(--dark__green__color);
-                    transform: translateY(-.2rem);
+                    transform: translateY(-.15rem);
                 }
             }
         }

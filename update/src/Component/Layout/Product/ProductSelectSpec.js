@@ -5,17 +5,19 @@ import FormSelect from '../../UI/FormSelect';
 import { SelectedProductContext } from '../../../store/product-context';
 
 const ProductSelectSpec = (props) => {
-    const { productSpecs } = props;
+    const { productSpecs, setShowQty } = props;
     const [ filterList, setFilterList ] = useState(false);
     const [ selectDefault, setSelectDefault ] = useState('請選擇規格');
 
-    const ctx = useContext(SelectedProductContext);
+    const selectedProductCtx = useContext(SelectedProductContext);
+
+    const { setModelSrcoll } = selectedProductCtx;
 
     const selected = useCallback((specName) => {
         setSelectDefault(specName);
         setFilterList(false);
-        ctx.specSelected();
-    }, [ctx]);
+        setModelSrcoll(true);
+    }, [setModelSrcoll]);
 
     return (
         <FormSelect
@@ -29,6 +31,7 @@ const ProductSelectSpec = (props) => {
                         <ProductSpecList
                             key={productSpec.id}
                             productSpec={productSpec}
+                            setShowQty={setShowQty}
                             onSelected={() => selected(productSpec.specName)}
                         />
                     );

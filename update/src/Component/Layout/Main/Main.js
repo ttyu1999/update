@@ -34,7 +34,7 @@ const Main = () => {
           <ProductListFilterProvide>
             <FilterProduct />
             <Routes>
-              <Route path="/" element={<ProductList />} />
+              <Route path="/*" element={<ProductList />} />
               <Route path="/:categoryId/*" element={<ProductList />} />
             </Routes>
             <Pagination />

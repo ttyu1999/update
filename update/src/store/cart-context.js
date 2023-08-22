@@ -1,5 +1,4 @@
 import React, { useReducer, useState } from "react";
-import PRODUCT_DATA from "../assets/product-data";
 
 export const CartContext = React.createContext({
   productId: "",
@@ -46,6 +45,8 @@ const cartReducer = (state, action) => {
       return total + item.productPrice * item.selectedQuantity;
     }, 0);
 
+    console.log(updatedItems);
+
     return {
       items: updatedItems,
       totalAmount: updatedTotalAmount,
@@ -54,7 +55,6 @@ const cartReducer = (state, action) => {
 
   if (action.type === "REMOVE") {
     const updatedItems = [...state.items];
-    console.log(updatedItems);
 
     let updatedTotalAmount = state.totalAmount;
 
@@ -63,7 +63,7 @@ const cartReducer = (state, action) => {
         if (item.selectedQuantity > 1) {
           item.selectedQuantity -= 1;
         } else {
-          updatedItems.splice(index, 1);
+          // updatedItems.splice(index, 1);
         }
         return (updatedTotalAmount -= item.productPrice);
       }
@@ -74,6 +74,7 @@ const cartReducer = (state, action) => {
         }
         return (updatedTotalAmount -= item.productPrice * item.selectedQuantity);
       }
+
       return updatedTotalAmount;
     });
 

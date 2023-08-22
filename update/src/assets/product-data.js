@@ -93,6 +93,7 @@ const PRODUCT_DATA = [
         productDesc: '蘊含萃取自濟州山茶花的保濕成分及玻尿酸，深度滋潤並賦予保濕光澤感的無色潤唇膏！',
         productSpecs: [
             {
+                id: 'A0400001001',
                 specName: '晨露無色潤唇膏',
                 SKUNumber: 1,
                 specColor: null,

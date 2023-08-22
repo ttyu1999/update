@@ -27,7 +27,7 @@ const Header = () => {
   }, 0);
 
   return (
-    <header className={styles.header}>
+    <header className={styles.header} id="header">
       <div className="group">
         <HeaderLogo />
         <button type="button" title="Menu Button" className="menu" onClick={() => modalHandler("showMenu")}>

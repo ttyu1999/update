@@ -1,4 +1,4 @@
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useCallback, useContext, useEffect, useState } from "react";
 import ProductItem from "./ProductItem";
 import styles from "./ProductList.module.scss";
@@ -14,7 +14,7 @@ import useFindMenuItem from "../../../hook/useFindMenuItem";
 
 const ProductList = () => {
   const [shownProductModal, setShownProductModal] = useState(false);
-  const [getProduct, setGetProduct] = useState('');
+  const [getProduct, setGetProduct] = useState("");
 
   const { categoryId } = useParams();
 
@@ -24,15 +24,21 @@ const ProductList = () => {
   const getProductLengthCtx = useContext(GetProductLengthContext);
 
   const { filterData } = filterCtx;
-  const { searchInputValue } = searchCtx;
+  const { searchParams } = searchCtx;
   const { currentPage, onePageItem } = pageCtx;
 
   const { getParentCategoryIds } = useFindMenuItem();
 
+  const search = searchParams.get("product");
+
   const selectCategoryHandler = useCallback(
     (products) => {
       return products.filter((product) => {
-        if (searchInputValue || !categoryId || categoryId === "product") {
+        if (
+          search ||
+          !categoryId ||
+          categoryId === "product"
+        ) {
           return true;
         } else {
           const parentIds = getParentCategoryIds(
@@ -48,18 +54,20 @@ const ProductList = () => {
         }
       });
     },
-    [categoryId, searchInputValue, getParentCategoryIds]
+    [categoryId, getParentCategoryIds, search]
   );
 
   const searchProductHandler = useCallback(
     (products) => {
-      return products.filter(
-        (product) =>
-          product.productName.includes(searchInputValue) ||
-          product.productDesc.includes(searchInputValue)
-      );
+      return products.filter((product) => {
+        if (!search) {
+          return true;
+        } else {
+          return product.productName.match(search) || product.productDesc.match(search);
+        }
+      });
     },
-    [searchInputValue]
+    [search]
   );
 
   const combinedFilterAndSearch = useCallback(

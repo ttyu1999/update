@@ -1,8 +1,11 @@
 .main {
     :global {
         width: min(1024px, 90%);
-        padding-block: 3rem;
         gap: 3rem;
+
+        @media screen and (max-width: 769px) {
+            gap: 1rem;
+        }
 
         h2, h3 {
             font-weight: 500;
@@ -37,7 +40,7 @@
                     flex-wrap: wrap;
                     align-items: center;
                     justify-content: space-between;
-                    gap: 1.5rem 1rem;
+                    gap: 1rem 1rem;
         
                     .txt {
                         flex: 1 1 100%;
@@ -92,6 +95,12 @@
                         }
                     }
 
+                    .freight__txt {
+                        flex: 1 1 100%;
+                        font-size: .7rem;
+                        text-align: center;
+                    }
+
                     .purchase__box {
                         display: flex;
                         gap: .5em;
@@ -113,7 +122,7 @@
         
                             @media screen and (max-width: 768px) {
                                 span {
-                                    font-size: .8em;
+                                    font-size: 1rem;
                                 } 
                             }
                         }
@@ -292,8 +301,7 @@
 .price__box {
     :global {
         flex: 9 1 auto;
-        font-size: 1.5rem;
-        justify-content: flex-start;
+        font-size: 1.8rem;
 
     .price {
         color: var(--dark__green__color);
@@ -303,7 +311,7 @@
     
     .ori__price {
         color: var(--dark__gray__color);
-        font-size: .75rem;
+        font-size: .8rem;
     }
     }
 }

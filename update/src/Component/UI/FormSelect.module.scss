@@ -6,7 +6,7 @@
 .select {
     :global {
         flex: 1 1 100%;
-        font-size: .8em;
+        font-size: .85rem;
         width: 100%;
         border: 1px solid var(--dark__gray__color);
         border-radius: .3em;
@@ -20,6 +20,7 @@
             justify-content: space-between;
 
             button {
+                font-size: 1em;
                 line-height: 1.5;
                 color: var(--black__color);
                 cursor: pointer;

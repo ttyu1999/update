@@ -3,6 +3,7 @@
         order: 3;
         margin-left: auto;
         position: relative;
+        z-index: 2;
 
         form {
             cursor: pointer;
@@ -67,6 +68,18 @@
             opacity: 0;
             visibility: hidden;
         }
+    }
+}
+
+@media (hover: none) {
+    .overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 1;
+    }
+    
+    .hidden {
+        visibility: hidden;
     }
 }
 

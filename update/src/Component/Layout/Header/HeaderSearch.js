@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { HiOutlineSearch } from "react-icons/hi";
 import styles from "./HeaderSearch.module.scss";
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
@@ -7,9 +8,11 @@ const HeaderSearch = () => {
   const [removeAnimation, setRemoveAnimation] = useState(false);
   const [inputBoxHide, setInputBoxHide] = useState(true);
 
+  const navigate = useNavigate();
+
   const searchCtx = useContext(SearchContext);
   const pageCtx = useContext(PageContext);
-  
+
   const containerRef = useRef();
   const inputRef = useRef();
 
@@ -19,23 +22,28 @@ const HeaderSearch = () => {
 
   const submitHandler = () => {
     let inputValue = inputRef.current.value;
-    searchCtx.setSearchInputValue(inputValue);
     pageCtx.setCurrentPage(1);
 
-    const element = document.getElementById('product__content');
-
-    element.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
+    searchCtx.setSearchParams({
+      product: inputValue,
     });
+
+    const body = document.body;
+
+    body.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+
+    return navigate(`/product?product=${inputValue}`);
   };
 
   const inputKeyDownHandler = (e) => {
     if (e.key === "Enter") {
-        e.preventDefault();
-        submitHandler();
-      }
-  }
+      e.preventDefault();
+      submitHandler();
+    }
+  };
 
   const hideSearchBoxHandler = useCallback(
     (e) => {
@@ -73,36 +81,38 @@ const HeaderSearch = () => {
         placeholder="搜尋..."
         ref={inputRef}
       />
-      <button
-        type="button"
+      <span
         onClick={submitHandler}
         className={`icon ${removeAnimation ? "remove__icon" : ""}`}
       >
         <HiOutlineSearch />
-      </button>
+      </span>
     </div>
   );
 
   return (
-    <button
-      type="button"
-      title="Search Button"
-      className={styles.search}
-      onClick={searchBoxHandler}
-      ref={containerRef}
-    >
-      <form>
-        {searchBox}
-        <label
-          htmlFor="search__products"
-          className={!inputBoxHide ? "hidden" : ""}
-        >
-          <span className="icon">
-            <HiOutlineSearch />
-          </span>
-        </label>
-      </form>
-    </button>
+    <>
+      <button
+        type="button"
+        title="Search Button"
+        className={styles.search}
+        onClick={searchBoxHandler}
+        ref={containerRef}
+      >
+        <form>
+          {searchBox}
+          <label
+            htmlFor="search__products"
+            className={!inputBoxHide ? "hidden" : ""}
+          >
+            <span className="icon">
+              <HiOutlineSearch />
+            </span>
+          </label>
+        </form>
+      </button>
+      <div className={`${styles.overlay} ${inputBoxHide ? styles.hidden : ''}`}></div>
+    </>
   );
 };
 

@@ -1,9 +1,8 @@
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import React, { useContext, useState, useEffect } from "react";
 import { BsLine } from "react-icons/bs";
 import { BsFacebook } from "react-icons/bs";
 import { BsTwitter } from "react-icons/bs";
-import { HiShoppingCart } from "react-icons/hi";
 import { HiOutlineHeart } from "react-icons/hi";
 import { HiFire } from "react-icons/hi";
 import { HiOutlineChevronDown } from "react-icons/hi";
@@ -17,9 +16,14 @@ import styles from "./ProductPage.module.scss";
 import BreadCrumb from "../Main/BreadCrumb";
 import ProductQuantity from "./ProductQuantity";
 import ProductPrice from "./ProductPrice";
+import { SelectedProductContext } from "../../../store/product-context";
+import ProductPurchase from "./ProductPurchase";
+import { CartContext } from "../../../store/cart-context";
 
 const ProductPage = () => {
   const { state } = useLocation();
+  const [userSeletedQuantity, setUserSeletedQuantity] = useState(1);
+  const [showQty, setShowQty] = useState(false);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
   const {
@@ -31,6 +35,19 @@ const ProductPage = () => {
     productOriPrice,
     productPrice,
   } = state.product;
+
+  const selectedProductCtx = useContext(SelectedProductContext);
+  const { isResetQuantity, getSpecStock } = selectedProductCtx;
+
+  const cartCtx = useContext(CartContext);
+  const { setProductId, setProductSpecId } = cartCtx;
+
+  useEffect(() => {
+    setProductId(id);
+    if (productSpecs.length === 1) {
+      setProductSpecId(productSpecs[0].id);
+    }
+  }, [setProductId, setProductSpecId, id, productSpecs]);
 
   let swiperSlide = productImg?.map((img, index) => {
     return (
@@ -44,7 +61,7 @@ const ProductPage = () => {
 
   if (productSpecs?.length > 1) {
     hasProductSpec = (
-      <ProductSelectSpec productSpecs={productSpecs} />
+      <ProductSelectSpec productSpecs={productSpecs} setShowQty={setShowQty} />
     );
   }
 
@@ -130,19 +147,29 @@ const ProductPage = () => {
               </span>
             </div>
             {hasProductSpec}
-            <ProductQuantity className={styles.quantity__box} />
             <ProductPrice
               className={styles.price__box}
               productOriPrice={productOriPrice}
               productPrice={productPrice}
+              userSeletedQuantity={userSeletedQuantity}
             />
+            {productSpecs?.length > 1 ? (
+              showQty && (
+                <ProductQuantity
+                  multipleSpecStock={getSpecStock}
+                  onResetQuantity={isResetQuantity}
+                  stockClassName={styles.stock__shortage}
+                  setUserSeletedQuantity={setUserSeletedQuantity}
+                />
+              )
+            ) : (
+              <ProductQuantity singleSpecStock={productSpecs[0].stock} />
+            )}
+            <p className="freight__txt">
+              消費滿1000元可享免運優惠（宅配，超商取貨）| 離島地區滿2500元
+            </p>
             <div className="purchase__box">
-              <button className="btn add__cart__btn">
-                <span className="icon">
-                  <HiShoppingCart />
-                </span>
-                <span>加入購物車</span>
-              </button>
+              <ProductPurchase />
               <button className="btn wish__list__btn">
                 <span className="icon">
                   <HiOutlineHeart />

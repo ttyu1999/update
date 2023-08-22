@@ -22,11 +22,11 @@
     }
 
     :global {
-        padding: .4em .8em .4em 0;
+        padding-right: .8em;
         position: relative;
         flex: 0 1 var(--sidebar__width);
         position: sticky;
-        top: 70px;
+        top: calc(24px + 3rem);
         max-height: calc(100vh - 70px);
         /* Chrome 114 版不再支援overlay:( */
         overflow: overlay;
@@ -40,12 +40,24 @@
             align-items: center;
             justify-content: space-between;
 
-            button {
+            &:has(.active) > *,
+            .active {
+                & > span {
+                    color: var(--light__pink__color);
+
+                    &:before {
+                        width: 100%;
+                    }
+                }
+            }
+
+            a {
                 font-size: .9rem;
                 text-align: left;
                 flex: 1 1 0;
                 padding: .6em .5em;
                 cursor: pointer;
+                transition: color .3s ease-in-out;
 
                 span {
                     position: relative;
@@ -104,7 +116,7 @@
                 font-weight: 500;
             }
 
-            button {
+            a {
                 display: -webkit-box;
                 -webkit-box-orient: vertical;
                 -webkit-line-clamp: 2;
