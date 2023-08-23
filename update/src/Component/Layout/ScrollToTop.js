@@ -1,16 +1,9 @@
 import { HiUpload } from "react-icons/hi";
 import styles from './ScrollToTop.module.scss';
+import useScrollTop from "../../hook/useScrollTop";
 
 const ScrollToTop = () => {
-
-    const scrollToTop = () => {
-        const body = document.body;
-
-        body.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-    }
+    const { scrollToTop } = useScrollTop();
 
     return (
         <div className={styles.scroll__to__top} onClick={scrollToTop}>

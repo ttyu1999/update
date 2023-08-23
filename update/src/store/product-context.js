@@ -1,4 +1,4 @@
-import { Link, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 import React, { useState } from "react";
 
@@ -53,21 +53,16 @@ export const ProductListFilterProvide = ({ children }) => {
 };
 
 export const SearchContext = React.createContext({
-  searchInputValue: "",
-  setSearchInputValue: () => {},
   searchParams: "",
   setSearchParams: () => {},
 });
 
 export const SearchProvide = ({ children }) => {
-  const [searchInputValue, setSearchInputValue] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
 
   return (
     <SearchContext.Provider
       value={{
-        searchInputValue,
-        setSearchInputValue,
         searchParams,
         setSearchParams,
       }}

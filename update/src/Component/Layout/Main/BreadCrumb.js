@@ -1,19 +1,15 @@
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "./BreadCrumb.module.scss";
+import useScrollTop from "../../../hook/useScrollTop";
 
 const BreadCrumb = (props) => {
-
-  const headerHeight = document.getElementById('header');
+  const { scrollToTop } = useScrollTop();
 
   return (
     <ol
       className={`${styles.breadcrumb} ${
         props.className ? props.className : ""
       }`}
-      style={{
-        // top: headerHeight.clientHeight
-      }}
     >
       <li key="home">
         <Link to="/">
@@ -22,7 +18,9 @@ const BreadCrumb = (props) => {
       </li>
       <li key="product">
         <Link to="/product">
-          <button type="button">全館商品</button>
+          <button type="button" onClick={scrollToTop}>
+            全館商品
+          </button>
         </Link>
       </li>
       {props.breadCrumbs &&
@@ -30,7 +28,9 @@ const BreadCrumb = (props) => {
           return (
             <li key={breadcrumb.id}>
               <Link to={`/product/${breadcrumb.id}`}>
-                <button type="button">{breadcrumb.name}</button>
+                <button type="button" onClick={scrollToTop}>
+                  {breadcrumb.name}
+                </button>
               </Link>
             </li>
           );

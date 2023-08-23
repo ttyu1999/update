@@ -22,9 +22,7 @@ const CartItem = (props) => {
 
   const quantityHandler = (fluctuation) => {
     if (fluctuation === "decrease") {
-      if (selectedQuantity > 1) {
-        removeToCart(specId);
-      }
+      removeToCart(specId);
     } else if (fluctuation === "increase") {
       if (selectedQuantity < stock) {
         addToCart({ ...props.item, selectedQuantity: 1 });
@@ -37,8 +35,6 @@ const CartItem = (props) => {
   const getUserInputValue = (e) => {
     e.preventDefault();
   };
-
-  console.log(selectedQuantity);
 
   return (
     <li className="product__list">

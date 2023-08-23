@@ -63,9 +63,9 @@ const cartReducer = (state, action) => {
         if (item.selectedQuantity > 1) {
           item.selectedQuantity -= 1;
         } else {
-          // updatedItems.splice(index, 1);
+          updatedItems.splice(index, 1);
         }
-        return (updatedTotalAmount -= item.productPrice);
+          return updatedTotalAmount -= item.productPrice;
       }
 
       if (item.specId === action.id.specId) {
@@ -88,7 +88,7 @@ const cartReducer = (state, action) => {
 };
 
 export const CartProvide = ({ children }) => {
-  const [productId, setProductId] = useState("B0301001");
+  const [productId, setProductId] = useState("");
   const [productSpecId, setProductSpecId] = useState("");
   const [selectedQuantity, setSelectedQuantity] = useState(1);
   const [cartState, dispatchCartAction] = useReducer(

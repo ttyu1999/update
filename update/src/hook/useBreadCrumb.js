@@ -1,5 +1,3 @@
-import MENU_DATA from "../assets/menu-data";
-
 const useBreadCrumb = () => {
   const getListBreadCrumb = (itemId, categoryData) => {
     const recursiveFind = (menuItem, parents) => {

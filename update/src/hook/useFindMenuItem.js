@@ -1,24 +1,23 @@
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
-import {
-  SearchContext,
-  PageContext,
-} from "../store/product-context";
+import { PageContext } from "../store/product-context";
 import MENU_DATA from "../assets/menu-data";
+import useScrollTop from "./useScrollTop";
 
 const useFindMenuItem = () => {
-  const searchCtx = useContext(SearchContext);
+  const { scrollToTop } = useScrollTop();
   const pageCtx = useContext(PageContext);
 
   const navigate = useNavigate();
 
-  const findMenuItem = (itemId, categoryData) => {
+  
+  const path = (itemId, categoryData) => {
     const recursiveFind = (menuItem) => {
       if (menuItem.id === itemId) {
-        if ('000000' !== itemId) {
-            return navigate(`/product/${itemId}`);
+        if ("000000" !== itemId) {
+          return navigate(`/product/${itemId}`);
         } else {
-            return navigate(`/product`);
+          return navigate(`/product`);
         }
       }
 
@@ -43,7 +42,6 @@ const useFindMenuItem = () => {
 
     return null;
   };
-
 
   const getParentCategoryIds = (itemId, categoryData) => {
     const recursiveFind = (categoryItem, parents) => {
@@ -75,23 +73,17 @@ const useFindMenuItem = () => {
   };
 
   const categoriesClick = (categoryId, onHide = null) => {
-    const result = findMenuItem(categoryId, MENU_DATA);
+    const result = path(categoryId, MENU_DATA);
     if (result) {
       navigate(result);
     }
     pageCtx.setCurrentPage(1);
-    searchCtx.setSearchInputValue("");
     onHide && onHide();
 
-    const body = document.body;
-
-    body.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
+    scrollToTop();
   };
 
-  return { categoriesClick, findMenuItem, getParentCategoryIds };
+  return { categoriesClick, getParentCategoryIds };
 };
 
 export default useFindMenuItem;

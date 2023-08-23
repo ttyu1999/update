@@ -165,6 +165,13 @@
                 }
             }
         }
+
+        .cancel {
+            position: fixed;
+            inset: .3em .3em auto auto;
+            cursor: pointer;
+            padding: .5em;
+        }
     }
 }
 

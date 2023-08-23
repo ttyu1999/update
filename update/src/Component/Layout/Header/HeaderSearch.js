@@ -3,10 +3,13 @@ import { HiOutlineSearch } from "react-icons/hi";
 import styles from "./HeaderSearch.module.scss";
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { SearchContext, PageContext } from "../../../store/product-context";
+import useScrollTop from "../../../hook/useScrollTop";
 
 const HeaderSearch = () => {
   const [removeAnimation, setRemoveAnimation] = useState(false);
   const [inputBoxHide, setInputBoxHide] = useState(true);
+
+  const { scrollToTop } = useScrollTop();
 
   const navigate = useNavigate();
 
@@ -28,12 +31,7 @@ const HeaderSearch = () => {
       product: inputValue,
     });
 
-    const body = document.body;
-
-    body.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
+    scrollToTop();
 
     return navigate(`/product?product=${inputValue}`);
   };

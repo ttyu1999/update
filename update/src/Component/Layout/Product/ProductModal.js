@@ -42,6 +42,8 @@ const ProductModal = (props) => {
     findMenuByCategoryId(category, MENU_DATA)
   );
 
+  category.push({name: productName, id});
+
   const modalCtx = useContext(ModalContext);
   const cartCtx = useContext(CartContext);
   const selectedProductCtx = useContext(SelectedProductContext);

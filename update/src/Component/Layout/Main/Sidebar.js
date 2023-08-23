@@ -1,14 +1,17 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import styles from "./Sidebar.module.scss";
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState, useMemo } from "react";
 
 import { HiOutlineChevronDown } from "react-icons/hi";
 import MENU_DATA from "../../../assets/menu-data";
 import useFindMenuItem from "../../../hook/useFindMenuItem";
+import useBreadCrumb from "../../../hook/useBreadCrumb";
 
 const Sidebar = () => {
+  const [getActiveId, setGetActiveId] = useState([]);
   const [expandedState, setExpandedState] = useState({});
   const { categoriesClick } = useFindMenuItem();
+  const { getListBreadCrumb } = useBreadCrumb();
 
   const arrowClickHandler = (id) => {
     setExpandedState((prevExpandedState) => {
@@ -19,15 +22,33 @@ const Sidebar = () => {
     });
   };
 
+  const location = useLocation();
+  const path = location.pathname;
+
+  const pathArray = path.split("/");
+  pathArray.splice(0, 2);
+  const pathStr = pathArray.join();
+
+  const activeLinkId = useCallback(() => {
+    const activeItem = getListBreadCrumb(pathStr, MENU_DATA);
+    const activeId = activeItem && activeItem.map((item) => item.id);
+    setGetActiveId(activeId);
+  }, [pathStr]);
+
+  useEffect(() => {
+    activeLinkId();
+  }, [activeLinkId]);
+
+  console.log(getActiveId);
+
   const renderListItem = (menu) => {
     const isSubMenuExpanded = expandedState[menu.id] || false;
+    const isMenuActive =
+      getActiveId && getActiveId.some((id) => id === menu.id);
     return (
       <li key={menu.id}>
         {menu.id === "000000" ? (
-          <Link
-            to={`/product`}
-            onClick={() => categoriesClick(menu.id, null)}
-          >
+          <Link to={`/product`} onClick={() => categoriesClick(menu.id, null)}>
             <span>{menu.name}</span>
           </Link>
         ) : (
@@ -39,18 +60,22 @@ const Sidebar = () => {
           </NavLink>
         )}
         {menu.subMenus && (
-          <button
-            type="button"
-            className={`icon${isSubMenuExpanded ? " rotate" : ""}`}
-            onClick={() => arrowClickHandler(menu.id)}
-          >
-            <HiOutlineChevronDown />
-          </button>
+          <>
+            <span
+              className={`icon${
+                isMenuActive || isSubMenuExpanded ? " rotate" : ""
+              }`}
+              onClick={() => arrowClickHandler(menu.id)}
+            >
+              <HiOutlineChevronDown />
+            </span>
+          </>
         )}
         {menu.subMenus && (
           <div
-            className="drop__down sub__menu"
-            style={{ gridTemplateRows: isSubMenuExpanded ? "1fr" : "" }}
+            className={`drop__down sub__menu${
+              isMenuActive || isSubMenuExpanded ? " checked" : " unchecked"
+            }`}
           >
             <ul>
               {menu.subMenus.map((subMenu) => {

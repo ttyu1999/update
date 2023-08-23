@@ -13,13 +13,14 @@ const ProductItem = (props) => {
   const { categoryId } = useParams();
 
   const {
+    id,
+    mainCategory,
     productImg,
     productName,
     productDesc,
     productSpecs,
     productOriPrice,
     productPrice,
-    mainCategory,
   } = product;
 
   let stock;
@@ -31,6 +32,8 @@ const ProductItem = (props) => {
   const categories = getProductBreadCrumb(mainCategory);
 
   const category = categories.map(category => findMenuByCategoryId(category, MENU_DATA));
+
+  category.push({name: productName, id});
 
 
   const quickViewHandler = useCallback(() => {

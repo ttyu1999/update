@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { useParams, useLocation } from "react-router-dom";
+import {  useLocation } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import BreadCrumb from "./BreadCrumb";
